@@ -1,0 +1,181 @@
+<head>
+  <meta charset="utf-8">
+  <title>Critarchy - Where Artists Go to Improve</title>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+</head>
+
+<template name="notfound">
+  <div class="section">
+    <div class="title">Uh oh :(</div>
+    <p>The page was not found!</p>
+  </div>
+</template>
+
+<template name="signinFirst">
+  <div class="section">
+    <div class="title">
+      <h1>Please sign in first</h1>
+    </div>
+    <p>We need to know who you are in order to do that! :)</p>
+  </div>
+</template>
+
+<template name="header">
+  {{> nav}}
+</template>
+
+<template name="footer">
+  <footer class="section">
+    <ul>
+      <li><a href="/about">About Critarchy</a></li>
+      <li><a href="/terms-of-use">Terms of Use</a></li>
+      <li><a href="/manifesto">The Critarchy Manifesto</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </footer>
+</template>
+
+<template name="mainLayout">
+  {{> header}}
+  {{> yield}}
+  {{> footer}}
+</template>
+
+<template name="home">
+  {{> welcome}}
+</template>
+
+<template name="nav">
+  <nav>
+    <ul>
+      <li id="logo">Critarchy</li>
+      <li><a href="/">Activity</a></li>
+      <li><a href="/art">Browse Art</a></li>
+      <li><a href="/crits">Critiques</a></li>
+      <li><a href="/sketchbooks">Sketchbooks</a></li>
+    </ul>
+    <ul>
+    {{#if currentUser}}
+      <li class="cta"><a href="/art/upload">Upload new art</a></li>
+      <li><a href="/sketchbook">My sketchbook</a></li>
+    {{/if}}
+    <li>
+      {{> loginButtons align="right"}}
+    </li>
+    </ul>
+  </nav>
+</template>
+
+<template name="welcome">
+  <div class="section">
+    <div class="title">
+      <h1>Welcome to Critarchy</h1>
+      <h2>Where artists go to get feedback</h2>
+      {{#unless currentUser}}
+      <div class="cta">
+        <a href="/art/new">Upload your first piece</a>
+      </div>
+      {{/unless}}
+    </div>
+    <p class="intro">We're designing a new way for artists to share their work, get feedback,
+      and most importantly, get better. Right now, we're focusing on two things:
+      critiques and sketchbooks.</p>
+    <h3>Critiques</h3>
+    <p>Critiques are all about posting your work and getting feedback so you can improve. When you post your art,
+    people can reply with critiques. The idea here is that great art gets even better with great
+    crits. This isn't a place to post your work if all you're looking for is a pat on the back. We believe
+    in constructive, in-depth feedback and think this should be the place you go to find that.</p>
+    <h3>Sketchbooks</h3>
+    <p>We think seeing artists' work in the context of their overall
+      improvement helps generate better crits. So sketchbooks are all about sharing your work over time.
+      They allow you to see and share how you're getting better. When you visit someone's
+      sketchbook, you see their work in reverse chronological order and can scroll through to see
+      how they've improved and leave comments or thanks when you see something great. You can still post
+      artwork separately - for instance, if you want some focused feedback just on that piece.</p>
+    <h3>Thanks</h3>
+    <p>When you leave critiques or comment on something, others can thank you.
+      "Thanks" are the currency of Critarchy; the more thanks you've received,
+      the more reputation you have in the community. We want this to be a place you go because
+      you know you'll be able to browse great art, and leave and receive great feedback. We hope the
+      thanks system will inspire you to both post your art and leave critiques.</p>
+
+    <h3>Why is it called Critarchy?</h3>
+    <p>A <a href="http://voluntaryist.com/forthcoming/kritarchy.html#.VOLS5lPN8m8">kritarchy</a>
+      is a form of government without political rule. Our vision is of a community for artists
+      designed by and for its members that doesn't
+      impose any forced business models or ad schemes. We'd like to try
+      building it. Calling it "Critarchy" is our punny way of referencing this while
+      still focusing on the most important thing: great critiques of great art.</p>
+
+    <h3>Why not just make a forum?</h3>
+    <p>Forums are great for discussion. We're building something different - a place for
+      great critiques. The number one focus is on artists exchanging feedback with each other,
+      not on people having conversations. We still think artists should have a forum where
+      they can talk about anything, it just isn't what we're working on.</p>
+
+    <h3>Who are you?</h3>
+    <p>We are <a href="http://dierat.com">Diedra</a> and <a href="http://twitter.com/rahul">Rahul</a>.
+    Diedra is an artist who, over the years, has been a member of many artists'
+    communities and as such has seen her fair share of how things work (and how they break). Rahul
+    is a user interface designer and software engineer who was inspired by Diedra's rants and a
+    discussion on Facebook to build this. We're just getting started. Let's see where things take us!</p>
+  </div>
+</template>
+
+<template name="uploadArt">
+  <div class="section">
+    <div class="title">
+      <h1>Upload new art</h1>
+    </div>
+    <form>
+      <p>
+        <div class="radio-options">
+          <label><input type="radio" name="type" value="critique"> Get crits</label>
+          <label><input type="radio" name="type" value="sketchbook"> Start a sketchbook</label>
+        </div>
+      </p>
+      <div class="upload">
+        {{> progressBar}}
+        <div class="upload-dropzone">
+          {{#if uploads}}
+          <p>The following files will be uploaded:</p>
+          <p>
+            {{#each uploads}}
+              <img src="{{url}}" style="width:200px">
+            {{/each}}
+          </p>
+          {{else}}
+            <p>Drag an image here to upload</p>
+          {{/if}}
+        </div>
+      </div>
+      <p>
+        <input type="text" class="input-title" placeholder="Post title" name="title">
+      </p>
+      <p>
+        <textarea rows="5" cols="42" placeholder="Post content" class="input-content" name="content"></textarea>
+      </p>
+      <p><input type="submit" value="Upload &amp; create!"></p>
+    </form>
+
+    <!-- {{#if file}}
+    <h2>Your uploads:</h2>
+    <div class="thumbnails">
+      {{#each file}}
+        <div class="thumb"><a href="{{.}}"><img src="{{imgix .}}"></a></div>
+      {{/each}}
+    </div>
+    {{/if}} -->
+  </div>
+</template>
+
+<template name="progressBar">
+  {{#if progress}}
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}"
+      aria-valuemin="0" aria-valuemax="100"
+      style="-webkit-transform: scaleX({{progress}}%)"></div>
+  </div>
+  {{/if}}
+</template>

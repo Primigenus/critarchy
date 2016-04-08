@@ -1,0 +1,182 @@
+@import "lib/variables.styl"
+
+body
+  margin 4rem 0 0 0
+  font 16px bodyFont
+  background #222
+  line-height 1.5rem
+
+a
+  color #ffc
+  &:hover
+    color #ffd100
+
+nav
+  position fixed
+  top 0
+  left 0
+  right 0
+  width 100%
+  background black
+  displayFlex()
+  justifyContent space-between
+
+  #logo
+    font-family bodyFont
+    font-weight bold
+    text-transform uppercase
+    background #ffd100
+    padding .5rem
+
+  ul
+    list-style none
+    margin 0
+    padding 0
+    li
+      display inline-block
+      padding .5rem
+
+input[type=text], textarea, input[type=submit], button
+  background #000
+  color white
+  padding 4px 8px
+  border none
+  font 1rem bodyFont
+
+  &.input-title
+    font-size 24px
+    font-weight bold
+    text-transform uppercase
+    width 25rem
+
+  &.input-content
+    width 25rem
+
+::-webkit-input-placeholder
+  color rgba(255,255,255,.7)
+:-moz-placeholder
+  color rgba(255,255,255,.7)
+::-moz-placeholder
+  color rgba(255,255,255,.7)
+::-ms-input-placeholder
+  color rgba(255,255,255,.7)
+
+.cta a, input[type=submit], button
+  cursor pointer
+  text-decoration none
+  font-weight bold
+  fontSmoothing antialiased
+  background-color #0073fe
+  color white
+  padding .5rem
+  text-transform uppercase
+
+.section
+  border solid 24px #333
+  background #fff
+  width 80vw
+  margin 2rem auto
+  padding 2rem
+
+  a
+    color #0073fe
+
+  p
+    width 70%
+    &.intro
+      font-weight bold
+      font-size 1.2rem
+
+  .title
+    padding 2rem
+    background #95f
+    background-size cover
+    background-repeat no-repeat
+    margin -2rem -2rem 2rem -2rem
+    fontSmoothing antialiased
+
+    h1
+      margin 0
+      background #ffd100
+      padding .5rem
+      text-transform uppercase
+      display inline-block
+
+    h2
+      color white
+      margin 1rem 0 0 0
+
+  h3
+    display inline-block
+    margin 0
+    border-bottom solid 3px #ffd100
+
+  .cta
+    margin 2rem 0
+    a
+      font-size 1.5rem
+      padding .5rem 1rem
+      color white
+
+.progress
+  margin 1rem 0
+  height 24px
+  width 300px
+  background #ccc
+  transition -webkit-transform ease .25s
+
+  .progress-bar
+    height 24px
+    background #999
+
+form
+  margin 0
+  padding 0
+
+  .radio-options
+    displayFlex()
+
+    label
+      displayFlex()
+      alignItems center
+      background #020fc9
+      justifyContent center
+      padding .5rem
+      font-size 2rem
+      color white
+      text-transform uppercase
+      font-weight bold
+      fontSmoothing antialiased
+      &:first-child
+        margin-right 1rem
+
+.upload-dropzone
+  padding 1rem
+  background black
+  color white
+
+  // prevent children from causing
+  // dragleave to fire
+  // see: http://stackoverflow.com/a/18542687/16308
+  *
+    pointer-events none
+
+  &.dragging-over
+    background-color #ffd100
+    color black
+
+.thumbnails
+  displayFlex()
+  flexWrap wrap
+
+  .thumb
+    displayFlex()
+    alignItems center
+    justifyContent center
+    width 200px
+    margin 1rem
+    height 200px
+    overflow hidden
+    background white
+    border solid 4px white
+    box-shadow 0 0 3px rgba(0,0,0,.2)

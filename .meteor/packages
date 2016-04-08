@@ -1,0 +1,18 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+coffeescript
+stylus
+accounts-twitter
+accounts-facebook
+accounts-google
+accounts-password
+accounts-ui
+edgee:slingshot
+spiderable
+raix:ui-dropped-event
+iron:router
