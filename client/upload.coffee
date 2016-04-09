@@ -7,11 +7,21 @@ Template.registerHelper "imgix", (url, def) ->
   (new imgix.URL("https://#{source}.imgix.net/#{url}", {w:200}, token)).getUrl()
 
 Template.uploadArt.onCreated ->
-  Session.setDefault 'activeUploads', []
-  Session.setDefault 'activeUploadProgress', 0
+  @uploaders = []
+  @activeUploads = new ReactiveVar([])
+  @activeUploadProgress = new ReactiveVar(0)
+  # Session.setDefault 'activeUploads', []
+  # Session.setDefault 'activeUploadProgress', 0
 
 Template.uploadArt.helpers
-  uploads: -> Session.get 'activeUploads'
+  uploads: ->
+    inst = Template.instance()
+    uploaders = inst.activeUploads.get()
+    uploaders
+  progress: ->
+    inst = Template.instance()
+    inst.activeUploadProgress.get()
+  file: -> _.last Meteor.user()?.profile.files, 5
 
 Template.uploadArt.events
   'dragover .upload-dropzone, dragenter .upload-dropzone': (evt) ->
@@ -26,36 +36,44 @@ Template.uploadArt.events
   'dropped form': (evt) ->
     evt.preventDefault()
 
-    Session.set "activeUploads", []
-    Session.set "activeUploadProgress", 0
+    inst = Template.instance()
+    inst.activeUploads.set []
+    inst.activeUploadProgress.set 0
 
+    # First, find which files we dropped
     files = evt.target.files or evt.originalEvent.dataTransfer.files
 
-    uploads = _.map files, (file) ->
+    # Create a new Slingshot Upload for each file
+    inst.uploaders = _.map files, (file) ->
       upload = new Slingshot.Upload fileUploadsName
       err = upload.validate file
       if err then console.error err
+      # Store the HTML5 file object on the upload for later use
       upload.file = file
       # upload.send file, uploadDone
       upload
 
+    # Use an autorun to watch the upload progress of uploading files
+    # and be able to report it to the UI
     Tracker.autorun (computation) ->
       activeUploads = []
       overallProgress = 0
 
-      _.each uploads, (uploader) ->
+      _.each inst.uploaders, (uploader) ->
+        # progress() is reactive
         prog = 100 * uploader.progress()
         imageDetails =
           url: uploader.url yes
           progress: prog
 
+        # save the blob and progress per image for display
         activeUploads.push imageDetails
         overallProgress += prog
 
       overallProgress = overallProgress / files.length
 
-      Session.set "activeUploads", activeUploads
-      Session.set "activeUploadProgress", ~~overallProgress
+      inst.activeUploads.set activeUploads
+      inst.activeUploadProgress.set ~~overallProgress
 
       if overallProgress is 100
         computation.stop()
@@ -65,15 +83,13 @@ Template.uploadArt.events
 
     uploadDone = (error, downloadUrl) ->
       if error then console.error(error)
-      else Meteor.users.update Meteor.userId(), $push: "profile.files": downloadUrl
+      else
+        Meteor.users.update Meteor.userId(), $push: "profile.files": downloadUrl
 
-    uploads = Session.get("activeUploads")
-    _.each uploads, (upload) -> upload.send(upload.file, uploadDone)
+    inst = Template.instance()
+    _.each inst.uploaders, (upload) -> upload.send(upload.file, uploadDone)
+
     # file = $("#upload")[0].files[0]
     # err = uploader.validate file
     # if err then console.error err
     # else uploader.send file, uploadDone
-
-
-Template.progressBar.helpers
-  progress: -> Session.get("activeUploadProgress")

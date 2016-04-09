@@ -136,7 +136,7 @@
         </div>
       </p>
       <div class="upload">
-        {{> progressBar}}
+        {{> progressBar progress=progress}}
         <div class="upload-dropzone">
           {{#if uploads}}
           <p>The following files will be uploaded:</p>
@@ -159,19 +159,19 @@
       <p><input type="submit" value="Upload &amp; create!"></p>
     </form>
 
-    <!-- {{#if file}}
-    <h2>Your uploads:</h2>
+    {{#if file}}
+    <h2>Your last five uploads:</h2>
     <div class="thumbnails">
       {{#each file}}
         <div class="thumb"><a href="{{.}}"><img src="{{imgix .}}"></a></div>
       {{/each}}
     </div>
-    {{/if}} -->
+    {{/if}}
   </div>
 </template>
 
 <template name="progressBar">
-  {{#if progress}}
+  {{#if this.progress}}
   <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}"
       aria-valuemin="0" aria-valuemax="100"
