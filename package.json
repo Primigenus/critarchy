@@ -1,0 +1,33 @@
+{
+  "name": "critarchy",
+  "version": "1.0.0",
+  "description": "Critarchy is an engine for helping artists improve.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint --silent"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Primigenus/critarchy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Primigenus/critarchy/issues"
+  },
+  "homepage": "https://github.com/Primigenus/critarchy#readme",
+  "eslintConfig": {
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb/base",
+      "plugin:meteor/guide"
+    ],
+    "rules": {}
+  },
+  "dependencies": {
+    "immutable": "^3.7.6"
+  }
+}
