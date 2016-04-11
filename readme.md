@@ -80,6 +80,12 @@ Books are collections of pages (threads). Types of books:
 - discussion books (pamphlets)
 - event books (like an art show catalogue, shows all the pieces displayed in the event)
 
+## Event books
+Event books are collections of sketchbook pages that users have submitted to an event. The event has a beginning and an end. At the end of the event, a poll will automatically be created from the submissions that are tagged as final and pass certain checks, such as:
+- the page was submitted after the event started
+- the user submitted X pages to the event (showing actual participation)
+The admin should also be able to remove submissions from the poll (in the case that the submission does not pass checks we can't programmatically scan for, like figures showing the front and back of the character).
+
 ## Pages
 Pages are threads of comments responding to an opening post. The opening post may be an image with a description or text, depending on the type of book the page appears in.
 
@@ -107,3 +113,10 @@ MVP
 - users can star other users and threads
 - alerts when starred users or threads have new updates
 - alerts when you receive a star (for your user, thread, or crit)
+- polls
+
+## Version 3
+- event threads
+
+## Version 4
+- artist journals
