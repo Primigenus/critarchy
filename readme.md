@@ -64,3 +64,46 @@ We are [Diedra](http://dierat.com) and [Rahul](http://twitter.com/rahul). Diedra
 ## Misc
   - Logo is the "Critocat"
   - Users are known as critocrats
+
+# New thoughts
+
+## Shelves
+Shelves are collections of books. Example shelves:
+- artist's shelf contains the artist's journal, sketchbook, resources, and faves
+- event shelf contains a book for each event
+
+## Books
+Books are collections of pages (threads). Types of books:
+- artist sketchbooks
+- artist journals
+- artist resources (resource scrapbook)
+- discussion books (pamphlets)
+- event books (like an art show catalogue, shows all the pieces displayed in the event)
+
+## Pages
+Pages are threads of comments responding to an opening post. The opening post may be an image with a description or text, depending on the type of book the page appears in.
+
+## Posts
+Posts are the contents of pages. A post may be an image + description, a comment, or a crits. Posts in sketchbooks not made by the artist are considered crits. Posts made by the artist are considered comments. All posts in discussion threads are considered comments.
+
+## Thanks/likes/faves/stars/pins/collects
+Users can save crits, comments, and pages, which give that item a point and also make the item accessible from the user's profile. (We should probably find an action that fits our metaphor.)
+
+## Follows
+Users can follow other users and pages to receive updates. Following users will alert the follower whenever the followee posts a new page, crit, or comment.
+
+## Version 1
+MVP
+- user profiles that link to user sketchbook and starred crits
+- artist sketchbooks in which artists can post new pages with art and descriptions
+- users can post crits on sketchbook pages
+- users can star crits
+- starred crits are showcased on front page
+- starred crits are showcased on star-er's profile
+
+## Version 2
+- user profiles have avatars and basic info like links to other profiles
+- discussion threads
+- users can star other users and threads
+- alerts when starred users or threads have new updates
+- alerts when you receive a star (for your user, thread, or crit)
