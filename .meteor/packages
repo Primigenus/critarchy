@@ -1,3 +1,14 @@
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+es5-shim
+ecmascript
+autopublish
+insecure
 standard-minifier-css
 standard-minifier-js
 mdg:validated-method
