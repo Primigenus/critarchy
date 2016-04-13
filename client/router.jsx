@@ -3,6 +3,7 @@ import {mount} from 'react-mounter';
 
 import MainLayout from './layout.jsx';
 import Home from '/imports/ui/Home.jsx';
+import CritList from '/imports/ui/CritList.jsx';
 import ArtList from '/imports/ui/ArtList.jsx';
 
 
@@ -18,7 +19,7 @@ FlowRouter.route("/", {
 FlowRouter.route("/crits", {
   action() {
     mount(MainLayout, {
-      content: <Home />
+      content: <CritList />
     });
   }
 });
