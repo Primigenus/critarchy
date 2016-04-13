@@ -16,3 +16,4 @@ aldeed:simple-schema
 aldeed:collection2
 react-meteor-data
 kadira:flow-router
+kadira:react-layout
