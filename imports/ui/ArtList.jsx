@@ -35,6 +35,6 @@ ArtList.propTypes = {
 
 export default createContainer(()=>{
   return {
-    arts: Pages.find({}).fetch()
+    arts: Pages.find({}, {sort: {critsNum: -1}}).fetch()
   };
 }, ArtList);
