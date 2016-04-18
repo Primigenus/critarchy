@@ -63,7 +63,7 @@ const crits = [
   {
     _id: "2",
     page: "1",
-    author: "",
+    author: "bouguereau",
     createdOn: new Date(),
     updatedOn: new Date(),
     likes: [],
@@ -73,7 +73,7 @@ const crits = [
   {
     _id: "3",
     page: "1",
-    author: "",
+    author: "rahul",
     createdOn: new Date(),
     updatedOn: new Date(),
     likes: [],
@@ -83,7 +83,7 @@ const crits = [
   {
     _id: "4",
     page: "1",
-    author: "",
+    author: "rando",
     createdOn: new Date(),
     updatedOn: new Date(),
     likes: [],
