@@ -5,6 +5,7 @@ import MainLayout from './layout.jsx';
 import Home from '/imports/ui/Home.jsx';
 import CritList from '/imports/ui/CritList.jsx';
 import ArtList from '/imports/ui/ArtList.jsx';
+import PostArtForm from '/imports/ui/PostArtForm.jsx';
 
 
 
@@ -35,7 +36,7 @@ FlowRouter.route("/art", {
 FlowRouter.route("/post", {
   action() {
     mount(MainLayout, {
-      content: <Home />
+      content: <PostArtForm />
     });
   }
 });
