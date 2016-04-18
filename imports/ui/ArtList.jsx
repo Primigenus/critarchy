@@ -3,14 +3,14 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Pages } from '../api/pages.js';
 
-import Art from './Art.jsx';
+import ArtSummary from './ArtSummary.jsx';
 
 
 
 class ArtList extends Component {
   renderArt(){
     return this.props.arts.map((art)=>(
-      <Art key={art._id} art={art} />
+      <ArtSummary key={art._id} art={art} />
     ));
   }
 
