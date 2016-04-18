@@ -7,7 +7,7 @@ import { Crits } from '../imports/api/crits.js';
 const pages = [
   {
     _id: "1",
-    author: "",
+    author: "dierat",
     createdOn: new Date(),
     updatedOn: new Date(),
     crits: ["2", "3", "4"],
@@ -20,7 +20,7 @@ const pages = [
   },
   {
     _id: "5",
-    author: "",
+    author: "dierat",
     createdOn: new Date(),
     updatedOn: new Date(),
     crits: [],
@@ -33,7 +33,7 @@ const pages = [
   },
   {
     _id: "6",
-    author: "",
+    author: "dierat",
     createdOn: new Date(),
     updatedOn: new Date(),
     crits: [],
@@ -41,6 +41,19 @@ const pages = [
     type: "art",
     image: "http://www.conceptart.org/forums/attachment.php?attachmentid=2168443&d=1449460379",
     text: "Drawn from life at Dr. Sketchy's (the background is made up though).",
+    likes: [],
+    likesNum: 0
+  },
+  {
+    _id: "7",
+    author: "bouguereau",
+    createdOn: new Date(),
+    updatedOn: new Date(),
+    crits: [],
+    critsNum: 2,
+    type: "art",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/17/Bouguereau-Evening_Mood_1882.jpg",
+    text: "Painted in 1882, now in the collection of the Havana's Museum of Fine Arts, in Cuba.",
     likes: [],
     likesNum: 0
   },
