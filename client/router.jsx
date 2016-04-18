@@ -25,6 +25,14 @@ FlowRouter.route("/crits", {
   }
 });
 
+FlowRouter.route("/crits/username/:username", {
+  action() {
+    mount(MainLayout, {
+      content: <CritList />
+    });
+  }
+});
+
 FlowRouter.route("/art", {
   action() {
     mount(MainLayout, {

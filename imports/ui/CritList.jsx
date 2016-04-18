@@ -34,7 +34,9 @@ CritList.propTypes = {
 
 
 export default createContainer(()=>{
+  let query = {};
+  if (FlowRouter.getParam('username')) query.author = FlowRouter.getParam('username');
   return {
-    crits: Crits.find({}, {sort: {likesNum: -1}}).fetch()
+    crits: Crits.find(query, {sort: {likesNum: -1}}).fetch()
   };
 }, CritList);
