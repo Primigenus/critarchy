@@ -33,6 +33,14 @@ FlowRouter.route("/art", {
   }
 });
 
+FlowRouter.route("/art/username/:username", {
+  action() {
+    mount(MainLayout, {
+      content: <ArtList />
+    });
+  }
+});
+
 FlowRouter.route("/post", {
   action() {
     mount(MainLayout, {

@@ -34,7 +34,9 @@ ArtList.propTypes = {
 
 
 export default createContainer(()=>{
+  let query = {};
+  if (FlowRouter.getParam('username')) query.author = FlowRouter.getParam('username');
   return {
-    arts: Pages.find({}, {sort: {critsNum: -1}}).fetch()
+    arts: Pages.find(query, {sort: {critsNum: -1}}).fetch()
   };
 }, ArtList);
