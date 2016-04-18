@@ -50,7 +50,7 @@ Home.propTypes = {
 
 export default createContainer(()=>{
   return {
-    crits: Crits.find({}).fetch(),
-    arts: Pages.find({}).fetch(),
+    crits: Crits.find({}, {limit: 10}).fetch(),
+    arts: Pages.find({}, {limit: 10}).fetch(),
   };
 }, Home);
