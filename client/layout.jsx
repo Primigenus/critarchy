@@ -7,7 +7,7 @@ export default class MainLayout extends Component {
     return (
       <div>
         <header>
-          <div>The Artist's Republic of Crits</div>
+          <a href="/">The Artist's Republic of Crits</a>
           <nav>
             <a href="/crits">crits</a>
             <a href="/art">art</a>
