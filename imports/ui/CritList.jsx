@@ -35,6 +35,6 @@ CritList.propTypes = {
 
 export default createContainer(()=>{
   return {
-    crits: Crits.find({}).fetch()
+    crits: Crits.find({}, {sort: {likesNum: -1}}).fetch()
   };
 }, CritList);
