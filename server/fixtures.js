@@ -14,7 +14,8 @@ const pages = [
     type: "art",
     image: "http://www.conceptart.org/forums/attachment.php?attachmentid=2166766&d=1448818773",
     text: "This was a painting I did for an album cover.",
-    likes: []
+    likes: [],
+    likesNum: 0
   },
   {
     _id: "5",
@@ -25,7 +26,8 @@ const pages = [
     type: "art",
     image: "http://www.conceptart.org/forums/attachment.php?attachmentid=2091005&stc=1&d=1422908295",
     text: "Tree study.",
-    likes: []
+    likes: [],
+    likesNum: 0
   },
   {
     _id: "6",
@@ -36,7 +38,8 @@ const pages = [
     type: "art",
     image: "http://www.conceptart.org/forums/attachment.php?attachmentid=2168443&d=1449460379",
     text: "Drawn from life at Dr. Sketchy's (the background is made up though).",
-    likes: []
+    likes: [],
+    likesNum: 0
   },
 ];
 
@@ -48,6 +51,7 @@ const crits = [
     createdOn: new Date(),
     updatedOn: new Date(),
     likes: [],
+    likesNum: 5,
     content: "Really nice rendering, but don't be afraid to push the saturation, unless that was intentional to give it a more vintage feeling."
   },
   {
@@ -57,6 +61,7 @@ const crits = [
     createdOn: new Date(),
     updatedOn: new Date(),
     likes: [],
+    likesNum: 0,
     content: "The hands seem really thin and girly for a dude."
   },
   {
@@ -66,6 +71,7 @@ const crits = [
     createdOn: new Date(),
     updatedOn: new Date(),
     likes: [],
+    likesNum: 1,
     content: "Could be more painterly, but that's more of an opinion since it's style-related."
   },
 ];
