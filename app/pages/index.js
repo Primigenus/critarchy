@@ -13,7 +13,7 @@ export default layout('', ({ isAuthenticated }) => (
     )}
     { isAuthenticated && (
       <p>
-        Now that you‘re authenticated, maybe you should try going to our <Link href="/secret">secret</Link>!
+        Now that you‘re authenticated, maybe you should try <Link href="/upload">uploading some art</Link>!
         Or <Link href="/auth/sign-off">Log out</Link>
       </p>
     )}
