@@ -6,13 +6,14 @@ import { getUserFromCookie, getUserFromLocalStorage } from '../utils/auth';
 
 const layout = (title, Page) => class Layout extends React.Component {
   static getInitialProps(ctx) {
-    const loggedUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(ctx.req);
+    const currentUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(ctx.req);
     const pageProps = Page.getInitialProps && Page.getInitialProps(ctx);
     return {
       ...pageProps,
-      loggedUser,
+      title,
+      currentUser,
       currentUrl: ctx.pathname,
-      isAuthenticated: !!loggedUser,
+      isAuthenticated: !!currentUser,
     };
   }
 
