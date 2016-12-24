@@ -24,10 +24,12 @@ const crit = () => class Crit extends React.Component {
 
 /*
  * Renders a list of critiques.
+ * The list is expected to already be sorted in the desired way.
  */
 const critList = () => class CritList extends React.Component {
   static getInitialProps() {
     return {
+      crits: [],
       // Critiques are expanded by default, but can be minimized by the user or rendered minimized by its parent component if desired.
       critsAreExpanded: true,
     };
@@ -36,7 +38,12 @@ const critList = () => class CritList extends React.Component {
   render() {
     return (
       <div>
-        {/* TODO(diedra): Map over this.props.crits returning a Crit for each with an expanded prop set to this.props.critsAreExpanded */}
+        {this.props.crits.map((crit) => (
+          <Crit
+            crit={crit}
+            expanded={this.props.critsAreExpanded}
+          />
+        ))}
       </div>
     );
   }
