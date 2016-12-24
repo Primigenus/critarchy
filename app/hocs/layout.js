@@ -33,7 +33,7 @@ const layout = (title, Page) => class Layout extends React.Component {
     return (
       <div>
         <HtmlHead { ...this.props } />
-        <Header />
+        <Header { ...this.props } />
         <Page { ...this.props } />
         <Footer />
       </div>
