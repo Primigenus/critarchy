@@ -2,21 +2,57 @@ import React from 'react';
 import Link from 'next/link';
 import layout from '../hocs/layout';
 
+/*
+ * Displays a single critique.
+ */
+const crit = () => class Crit extends React.Component {
+  static getInitialProps() {
+    return {
+      // Critiques are expanded by default, but can be minimized by the user or rendered minimized by its parent component if desired.
+      expanded: true,
+    };
+  }
+
+  render() {
+    return (
+      <div>
+
+      </div>
+    );
+  }
+};
+
+/*
+ * Renders a list of critiques.
+ */
+const critList = () => class CritList extends React.Component {
+  static getInitialProps() {
+    return {
+      // Critiques are expanded by default, but can be minimized by the user or rendered minimized by its parent component if desired.
+      critsAreExpanded: true,
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        {/* TODO(diedra): Map over this.props.crits returning a Crit for each with an expanded prop set to this.props.critsAreExpanded */}
+      </div>
+    );
+  }
+};
+
 export default layout('', ({ isAuthenticated }) => (
   <div>
-    { !isAuthenticated && (
-      <p>
-        You‘re not authenticated yet.
-        Maybe you want to <Link href="/auth/sign-in">Sign in</Link>
-        and see what happens?
-      </p>
-    )}
-    { isAuthenticated && (
-      <p>
-        Now that you‘re authenticated, maybe you should try going to our <Link href="/secret">secret</Link>!
-        Or <Link href="/auth/sign-off">Log out</Link>
-      </p>
-    )}
+    {/* TODO(diedra): Put top-thanked crits of last month here when there are
+      * crits going back far enough that this would be useful.
+      */}
 
+    <div>Top-thanked crits of all time will go here</div>
+
+    {/* TODO(diedra): Update this to be least-critted art of the last two weeks
+      * here when we have art going back far enough that they're outdated.
+      */}
+    <div>Least-critted art of all time will go here</div>
   </div>
 ));
