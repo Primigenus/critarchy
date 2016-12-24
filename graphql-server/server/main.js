@@ -7,7 +7,6 @@ import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import bodyParser from 'body-parser';
 import multer from 'multer';
 import express from 'express';
-import os from 'os';
 import cors from 'cors';
 
 import typeDefs from '../imports/api/typedefs';
@@ -57,7 +56,10 @@ graphQLServer.use(ENDPOINT_URL,
   graphqlExpress(() => ({
     schema,
     formatError(error) {
-      console.error(error.stack);
+      // surface errors to the terminal
+      if(Meteor.isDevelopment) {
+        console.error(error.stack);
+      }
       return error;
     },
     context,
