@@ -16,10 +16,34 @@ const crit = () => class Crit extends React.Component {
   render() {
     return (
       <div>
-
+        {this.props.crit.content}
       </div>
     );
   }
+};
+
+crit.propTypes = {
+  /* TODO(diedra): Split this off into a separate object in a shared propTypes file that can be reused in the propTypes of different components.
+   */
+  crit: React.PropTypes.shape({
+    id: React.PropTypes.string.isRequired,
+    created_on: React.PropTypes.object.isRequired,
+    created_by: React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+    }),
+    title: React.PropTypes.string.isRequired,
+    content: React.PropTypes.string.isRequired,
+    art: React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+    }),
+    thankedBy: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        id: React.PropTypes.string.isRequired,
+      })
+    ),
+  }),
+  // Whether this crit should be initially rendered as expanded
+  expanded: React.PropTypes.bool,
 };
 
 /*
