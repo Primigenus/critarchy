@@ -1,0 +1,6 @@
+.next
+node_modules
+settings.json
+config.json
+private/
+npm-debug.log
