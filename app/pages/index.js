@@ -75,15 +75,17 @@ const critList = () => class CritList extends React.Component {
 
 export default layout('', ({ isAuthenticated }) => (
   <div>
-    {/* TODO(diedra): Put top-thanked crits of last month here when there are
-      * crits going back far enough that this would be useful.
-      */}
-
-    <div>Top-thanked crits of all time will go here</div>
+    <div>Newest crits will go here</div>
 
     {/* TODO(diedra): Update this to be least-critted art of the last two weeks
       * here when we have art going back far enough that they're outdated.
       */}
     <div>Least-critted art of all time will go here</div>
+
+    {/* TODO(diedra): Put top-thanked crits of last month here when there are
+      * crits going back far enough that this would be useful.
+      */}
+
+    <div>Top-thanked crits of all time will go here</div>
   </div>
 ));
