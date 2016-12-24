@@ -10,6 +10,7 @@ const layout = (title, Page) => class Layout extends React.Component {
     const pageProps = Page.getInitialProps && Page.getInitialProps(ctx);
     return {
       ...pageProps,
+      title,
       currentUser,
       currentUrl: ctx.pathname,
       isAuthenticated: !!currentUser,
