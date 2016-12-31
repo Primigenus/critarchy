@@ -11,7 +11,8 @@ import 'isomorphic-fetch';
 const crit = () => class Crit extends React.Component {
   getDefaultProps() {
     return {
-      // Critiques are expanded by default, but can be minimized by the user or rendered minimized by its parent component if desired.
+      // Critiques are expanded by default, but can be minimized by the user or
+      // rendered minimized by its parent component if desired.
       expanded: true,
     };
   }
@@ -26,7 +27,8 @@ const crit = () => class Crit extends React.Component {
 };
 
 crit.propTypes = {
-  /* TODO(diedra): Split this off into a separate object in a shared propTypes file that can be reused in the propTypes of different components.
+  /* TODO(diedra): Split this off into a separate object in a shared propTypes
+   * file that can be reused in the propTypes of different components.
    */
   crit: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
@@ -57,7 +59,8 @@ const critList = () => class CritList extends React.Component {
   getDefaultProps() {
     return {
       crits: [],
-      // Critiques are expanded by default, but can be minimized by the user or rendered minimized by its parent component if desired.
+      // Critiques are expanded by default, but can be minimized by the user or
+      // rendered minimized by its parent component if desired.
       critsAreExpanded: true,
     };
   }
@@ -76,6 +79,10 @@ const critList = () => class CritList extends React.Component {
   }
 };
 
+/* TODO(diedra): Consider moving queries to a shared file so it's easy to
+ * query the same data from multiple places. (Crits in particular will
+ * probably be queried in a few places uses the same or very similar queries.)
+ */
 const query = gql`
   query testQuery {
     test {
@@ -95,15 +102,16 @@ export default class Crit extends React.Component {
     console.log("render this.props = ", this.props);
     return (
       <div>
-        <div>Newest crits will go here {this.props.data && this.props.data.test.name}</div>
+        <div>Newest crits will go here</div>
 
-        {/* TODO(diedra): Update this to be least-critted art of the last two weeks
-          * here when we have art going back far enough that they're outdated.
+        {/* TODO(diedra): Update this to be least-critted art of the last two
+          * weeks here when we have art going back far enough that they're
+          * outdated.
           */}
         <div>Least-critted art of all time will go here</div>
 
-        {/* TODO(diedra): Put top-thanked crits of last month here when there are
-          * crits going back far enough that this would be useful.
+        {/* TODO(diedra): Put top-thanked crits of last month here when there
+          * are crits going back far enough that this would be useful.
           */}
 
         <div>Top-thanked crits of all time will go here</div>
