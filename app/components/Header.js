@@ -7,7 +7,7 @@ const uploadLink = <Link href="/upload">Upload art</Link>;
 
 const Header = ({ currentUser, isAuthenticated }) => (
   <header>
-    <span>Critarchy</span>
+    <Link href="/">Critarchy</Link>
     { isAuthenticated
       ? <span>logged in as { currentUser.given_name }</span>
       : <span />
