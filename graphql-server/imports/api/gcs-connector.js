@@ -17,7 +17,8 @@ export default async (id, files, settings) => {
 
     const blobStream = blob.createWriteStream({
       // Google recommends setting this to false for files <10 MB
-      // see https://googlecloudplatform.github.io/google-cloud-node/#/docs/google-cloud/0.45.0/storage/file?method=createWriteStream
+      // see https://googlecloudplatform.github.io/google-cloud-node
+      //     /#/docs/google-cloud/0.45.0/storage/file?method=createWriteStream
       resumable: false,
       public: true,
       gzip: true,

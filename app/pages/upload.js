@@ -16,10 +16,14 @@ export default layout('Upload', class UploadImage extends React.Component {
     super(props);
     this.state = {
       uploadedImages: null,
+      uploading: false,
     };
   }
   onSubmit(evt) {
     evt.preventDefault();
+    this.setState({
+      uploading: true,
+    });
     uploadWithApollo.mutate({
       mutation: UPLOAD_IMAGE,
       variables: { id: 42, files: this.files },
@@ -27,6 +31,7 @@ export default layout('Upload', class UploadImage extends React.Component {
     .then(({ data }) => {
       this.setState({
         uploadedImages: data.uploadImage.map(image => image.publicUrl),
+        uploading: false,
       });
     })
     .catch(err => console.log('Error submitting mutation', err));
@@ -35,12 +40,13 @@ export default layout('Upload', class UploadImage extends React.Component {
     this.files = evt.target.files;
   }
   render() {
-    const { uploadedImages } = this.state;
+    const { uploading, uploadedImages } = this.state;
     return (
       <div>
         <form method="post" onSubmit={ evt => this.onSubmit(evt) } encType="multipart/form-data">
+          { uploading ? <div className="loading">Uploading...</div> : <span /> }
           <p><input type="file" onChange={ evt => this.changeFiles(evt) } /></p>
-          <p><input type="submit" defaultValue="Upload" /></p>
+          <p><input type="submit" defaultValue="Upload" disabled={ !!uploading } /></p>
           { uploadedImages
             ? uploadedImages.map((url, i) => <p key={ i }>You uploaded this image! <img src={ url } alt="" /></p>)
             : <span />
