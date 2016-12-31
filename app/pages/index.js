@@ -91,10 +91,16 @@ const query = gql`
   }
 `;
 
-export default class Crit extends React.Component {
-  static async getInitialProps() {
-    const result = await apollo.query({query});
-    return await apollo.query({query});
+export default class Home extends React.Component {
+  // static async getInitialProps() {
+  //   const result = await apollo.query({query});
+  //   return await apollo.query({query});
+  // }
+
+  static defaultProps = {
+    newestCrits: [],
+    leastCrittedArt: [],
+    topThankedCrits: [],
   }
 
   render() {
