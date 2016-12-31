@@ -12,8 +12,7 @@ export default {
       if(!files) {
         throw new Error('No files to upload');
       }
-      const results = await uploadToGCS(id, files, settings);
-      return results;
+      return await uploadToGCS(id, files, settings);
     },
   },
   HelloWorld: {
