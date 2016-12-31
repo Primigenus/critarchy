@@ -1,12 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import layout from '../hocs/layout';
+import apollo from '../hocs/apollo';
+import gql from 'graphql-tag';
+import 'isomorphic-fetch';
 
 /*
  * Displays a single critique.
  */
 const crit = () => class Crit extends React.Component {
-  static getInitialProps() {
+  getDefaultProps() {
     return {
       // Critiques are expanded by default, but can be minimized by the user or rendered minimized by its parent component if desired.
       expanded: true,
@@ -51,7 +54,7 @@ crit.propTypes = {
  * The list is expected to already be sorted in the desired way.
  */
 const critList = () => class CritList extends React.Component {
-  static getInitialProps() {
+  getDefaultProps() {
     return {
       crits: [],
       // Critiques are expanded by default, but can be minimized by the user or rendered minimized by its parent component if desired.
@@ -73,19 +76,38 @@ const critList = () => class CritList extends React.Component {
   }
 };
 
-export default layout('', ({ isAuthenticated }) => (
-  <div>
-    <div>Newest crits will go here</div>
+const query = gql`
+  query testQuery {
+    test {
+      name
+    }
+  }
+`;
 
-    {/* TODO(diedra): Update this to be least-critted art of the last two weeks
-      * here when we have art going back far enough that they're outdated.
-      */}
-    <div>Least-critted art of all time will go here</div>
+export default class Crit extends React.Component {
+  static async getInitialProps() {
+    const result = await apollo.query({query});
+    return await apollo.query({query});
+  }
 
-    {/* TODO(diedra): Put top-thanked crits of last month here when there are
-      * crits going back far enough that this would be useful.
-      */}
+  render() {
+    const { isAuthenticated } = this.props;
+    console.log("render this.props = ", this.props);
+    return (
+      <div>
+        <div>Newest crits will go here {this.props.data && this.props.data.test.name}</div>
 
-    <div>Top-thanked crits of all time will go here</div>
-  </div>
-));
+        {/* TODO(diedra): Update this to be least-critted art of the last two weeks
+          * here when we have art going back far enough that they're outdated.
+          */}
+        <div>Least-critted art of all time will go here</div>
+
+        {/* TODO(diedra): Put top-thanked crits of last month here when there are
+          * crits going back far enough that this would be useful.
+          */}
+
+        <div>Top-thanked crits of all time will go here</div>
+      </div>
+    );
+  }
+};
