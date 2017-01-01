@@ -8,13 +8,11 @@ import 'isomorphic-fetch';
 /*
  * Displays a single critique.
  */
-const crit = () => class Crit extends React.Component {
-  getDefaultProps() {
-    return {
-      // Critiques are expanded by default, but can be minimized by the user or
-      // rendered minimized by its parent component if desired.
-      expanded: true,
-    };
+class Crit extends React.Component {
+  static defaultProps = {
+    // Critiques are expanded by default, but can be minimized by the user or
+    // rendered minimized by its parent component if desired.
+    expanded: true,
   }
 
   render() {
@@ -26,13 +24,13 @@ const crit = () => class Crit extends React.Component {
   }
 };
 
-crit.propTypes = {
+Crit.propTypes = {
   /* TODO(diedra): Split this off into a separate object in a shared propTypes
    * file that can be reused in the propTypes of different components.
    */
   crit: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
-    created_on: React.PropTypes.object.isRequired,
+    created_on: React.PropTypes.number.isRequired,
     created_by: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
     }),
@@ -55,14 +53,12 @@ crit.propTypes = {
  * Renders a list of critiques.
  * The list is expected to already be sorted in the desired way.
  */
-const critList = () => class CritList extends React.Component {
-  getDefaultProps() {
-    return {
-      crits: [],
-      // Critiques are expanded by default, but can be minimized by the user or
-      // rendered minimized by its parent component if desired.
-      critsAreExpanded: true,
-    };
+class CritList extends React.Component {
+  static defaultProps = {
+    crits: [],
+    // Critiques are expanded by default, but can be minimized by the user or
+    // rendered minimized by its parent component if desired.
+    critsAreExpanded: true,
   }
 
   render() {
@@ -72,11 +68,17 @@ const critList = () => class CritList extends React.Component {
           <Crit
             crit={crit}
             expanded={this.props.critsAreExpanded}
+            key={crit.id}
           />
         ))}
       </div>
     );
   }
+};
+
+CritList.propTypes = {
+  crits: React.PropTypes.arrayOf(Crit.propTypes.crit),
+  critsAreExpanded: React.PropTypes.bool,
 };
 
 /* TODO(diedra): Consider moving queries to a shared file so it's easy to
@@ -85,22 +87,36 @@ const critList = () => class CritList extends React.Component {
  */
 const query = gql`
   query testQuery {
-    test {
-      name
+    newestCrits {
+      id
+      created_on
+      created_by {
+        id
+      }
+      title
+      content
+      art {
+        id
+      }
+      thankedBy {
+        id
+      }
     }
   }
 `;
 
 export default class Home extends React.Component {
-  // static async getInitialProps() {
-  //   const result = await apollo.query({query});
-  //   return await apollo.query({query});
-  // }
+  static async getInitialProps() {
+    const result = await apollo.query({query});
+    return await apollo.query({query});
+  }
 
   static defaultProps = {
-    newestCrits: [],
-    leastCrittedArt: [],
-    topThankedCrits: [],
+    data: {
+      newestCrits: [],
+      leastCrittedArt: [],
+      mostThankedCrits: [],
+    }
   }
 
   render() {
