@@ -16,6 +16,7 @@ const userSchema = new Schema({
   sketchbooksLiked: [{id: String}],
   critiquesLiked: [{id: String}],
   followers: [{id: String}],
+  following: [{id: String}],
 });
 
 const sketchbookSchema = new Schema({
