@@ -9,8 +9,10 @@ const Mocks = {
   HelloWorld: () => ({
     name: casual.first_name,
   }),
-  Crit: () => fakeData.crits[getRandomIndex(5)],
+  User: () => fakeData.users[getRandomIndex(5)],
+  Sketchbook: () => fakeData.sketchbooks[getRandomIndex(5)],
   Art: () => fakeData.art[getRandomIndex(5)],
+  Crit: () => fakeData.crits[getRandomIndex(5)],
 };
 
 export default Mocks;
