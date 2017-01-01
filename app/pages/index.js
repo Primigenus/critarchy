@@ -124,7 +124,12 @@ export default class Home extends React.Component {
     console.log("render this.props = ", this.props);
     return (
       <div>
-        <div>Newest crits will go here</div>
+        <div>
+          <CritList
+            crits={this.props.data.newestCrits}
+            critsAreExpanded={false}
+          />
+        </div>
 
         {/* TODO(diedra): Update this to be least-critted art of the last two
           * weeks here when we have art going back far enough that they're
