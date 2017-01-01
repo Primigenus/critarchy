@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   /* TODO(diedra): figure out this syntax for automatically creating ids */
   id: {type: ObjectId, turnOn: true},
-  created_on: {type: Date, default: Date.now},
+  createdOn: {type: Date, default: Date.now},
   name: String,
   bio: String,
   avatar: String,
   artCreated: [{id: String}],
   // sketchbooksCreated will initially have only one value
   sketchbooksCreated: [{id: String}],
-  critiquesAuthored: [{id: String}],
+  critiquesCreated: [{id: String}],
   artLiked: [{id: String}],
   sketchbooksLiked: [{id: String}],
   critiquesLiked: [{id: String}],
@@ -21,18 +21,18 @@ const userSchema = new Schema({
 
 const sketchbookSchema = new Schema({
   id: {type: ObjectId, turnOn: true},
-  created_on: {type: Date, default: Date.now},
-  created_by: {id: String},
+  createdOn: {type: Date, default: Date.now},
+  createdBy: {id: String},
   title: String,
   description: String,
   art: [{id: String}],
-  watchedBy: [{id: String}],
+  likedBy: [{id: String}],
 });
 
 const artSchema = new Schema({
   id: {type: ObjectId, turnOn: true},
-  created_on: {type: Date, default: Date.now},
-  created_by: {id: String},
+  createdOn: {type: Date, default: Date.now},
+  createdBy: {id: String},
   title: String,
   description: String,
 /* TODO(diedra): Expand this to be an object holding the URLs to different
@@ -42,13 +42,13 @@ const artSchema = new Schema({
   // sketchbooks will initially have only one value
   sketchbooks: [{id: String}],
   critiques: [{id: String}],
-  collectedBy: [{id: String}],
+  likedBy: [{id: String}],
 });
 
 const critiqueSchema = new Schema({
   id: {type: ObjectId, turnOn: true},
-  created_on: {type: Date, default: Date.now},
-  created_by: {id: String},
+  createdOn: {type: Date, default: Date.now},
+  createdBy: {id: String},
   title: String,
   content: String,
   art: {id: String},

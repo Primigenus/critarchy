@@ -30,8 +30,8 @@ Crit.propTypes = {
    */
   crit: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
-    created_on: React.PropTypes.number.isRequired,
-    created_by: React.PropTypes.shape({
+    createdOn: React.PropTypes.number.isRequired,
+    createdBy: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
     }),
     title: React.PropTypes.string.isRequired,
@@ -89,8 +89,8 @@ const query = gql`
   query testQuery {
     newestCrits {
       id
-      created_on
-      created_by {
+      createdOn
+      createdBy {
         id
       }
       title
