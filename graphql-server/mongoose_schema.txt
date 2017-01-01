@@ -7,9 +7,7 @@ const userSchema = new Schema({
   created_on: {type: Date, default: Date.now},
   name: String,
   bio: String,
-/* TODO(diedra): get this from FB login
-  avatar: TODO,
-*/
+  avatar: String,
   artCreated: [{id: String}],
   // sketchbooksCreated will initially have only one value
   sketchbooksCreated: [{id: String}],
@@ -20,15 +18,26 @@ const userSchema = new Schema({
   followers: [{id: String}],
 });
 
+const sketchbookSchema = new Schema({
+  id: {type: ObjectId, turnOn: true},
+  created_on: {type: Date, default: Date.now},
+  created_by: {id: String},
+  title: String,
+  description: String,
+  art: [{id: String}],
+  watchedBy: [{id: String}],
+});
+
 const artSchema = new Schema({
   id: {type: ObjectId, turnOn: true},
   created_on: {type: Date, default: Date.now},
   created_by: {id: String},
   title: String,
   description: String,
-/* TODO(diedra): get this from image store
-  images: TODO,
-*/
+/* TODO(diedra): Expand this to be an object holding the URLs to different
+ * sizes of images.
+ */
+  image: String,
   // sketchbooks will initially have only one value
   sketchbooks: [{id: String}],
   critiques: [{id: String}],
@@ -43,17 +52,4 @@ const critiqueSchema = new Schema({
   content: String,
   art: {id: String},
   thankedBy: [{id: String}],
-});
-
-const sketchbookSchema = new Schema({
-  id: {type: ObjectId, turnOn: true},
-  created_on: {type: Date, default: Date.now},
-  created_by: {id: String},
-  title: String,
-  description: String,
-/* TODO(diedra): get this image store
-  images: TODO,
-*/
-  art: [{id: String}],
-  watchedBy: [{id: String}],
 });
