@@ -4,6 +4,7 @@ import layout from '../hocs/layout';
 import apollo from '../hocs/apollo';
 import gql from 'graphql-tag';
 import 'isomorphic-fetch';
+import ThumbsUpIcon from '../components/icons/ThumbsUpIcon';
 
 /*
  * Displays a single critique.
@@ -18,7 +19,19 @@ class CritThumbnail extends React.Component {
   render() {
     return (
       <div>
-        {this.props.crit.content}
+        <div>{this.props.crit.content}</div>
+        <div>
+          <div>
+            <ThumbsUpIcon
+              id={this.props.crit.id}
+              /* TODO(diedra): Determine isLiked by checking if the current user is
+               * in the critique's likedBy list.
+               */
+              isLiked={false}
+            />
+          </div>
+          <img src={this.props.crit.art.image}></img>
+        </div>
       </div>
     );
   }
