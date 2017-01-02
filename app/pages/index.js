@@ -8,7 +8,7 @@ import 'isomorphic-fetch';
 /*
  * Displays a single critique.
  */
-class Crit extends React.Component {
+class CritThumbnail extends React.Component {
   static defaultProps = {
     // Critiques are expanded by default, but can be minimized by the user or
     // rendered minimized by its parent component if desired.
@@ -24,7 +24,7 @@ class Crit extends React.Component {
   }
 };
 
-Crit.propTypes = {
+CritThumbnail.propTypes = {
   /* TODO(diedra): Split this off into a separate object in a shared propTypes
    * file that can be reused in the propTypes of different components.
    */
@@ -63,7 +63,7 @@ Crit.propTypes = {
  * Renders a list of critiques.
  * The list is expected to already be sorted in the desired way.
  */
-class CritList extends React.Component {
+class CritThumbnailList extends React.Component {
   static defaultProps = {
     crits: [],
     // Critiques are expanded by default, but can be minimized by the user or
@@ -75,7 +75,7 @@ class CritList extends React.Component {
     return (
       <div>
         {this.props.crits.map((crit) => (
-          <Crit
+          <CritThumbnail
             crit={crit}
             expanded={this.props.critsAreExpanded}
             key={crit.id}
@@ -86,8 +86,8 @@ class CritList extends React.Component {
   }
 };
 
-CritList.propTypes = {
-  crits: React.PropTypes.arrayOf(Crit.propTypes.crit),
+CritThumbnailList.propTypes = {
+  crits: React.PropTypes.arrayOf(CritThumbnail.propTypes.crit),
   critsAreExpanded: React.PropTypes.bool,
 };
 
@@ -141,7 +141,7 @@ export default class Home extends React.Component {
     return (
       <div>
         <div>
-          <CritList
+          <CritThumbnailList
             crits={this.props.data.newestCrits}
             critsAreExpanded={false}
           />
