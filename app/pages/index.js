@@ -30,18 +30,28 @@ Crit.propTypes = {
    */
   crit: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
+    // The date the critique was created in miliseconds
     createdOn: React.PropTypes.number.isRequired,
     createdBy: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
+      name: React.PropTypes.string.isRequired,
+      // URL to the avatar of the user that created this critique
+      avatar: React.PropTypes.string.isRequired,
     }),
     title: React.PropTypes.string.isRequired,
     content: React.PropTypes.string.isRequired,
     art: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
+      title: React.PropTypes.string.isRequired,
+      // URL to the image for the art that this critique is for
+      image: React.PropTypes.string.isRequired,
     }),
     thankedBy: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         id: React.PropTypes.string.isRequired,
+        name: React.PropTypes.string.isRequired,
+        // URL to the avatar of the user that thanked this critique
+        avatar: React.PropTypes.string.isRequired,
       })
     ),
   }),
@@ -92,14 +102,20 @@ const query = gql`
       createdOn
       createdBy {
         id
+        name
+        avatar
       }
       title
       content
       art {
         id
+        title
+        image
       }
       thankedBy {
         id
+        name
+        avatar
       }
     }
   }
@@ -141,7 +157,7 @@ export default class Home extends React.Component {
           * are crits going back far enough that this would be useful.
           */}
 
-        <div>Top-thanked crits of all time will go here</div>
+        {/* <div>Top-thanked crits of all time will go here</div> */}
       </div>
     );
   }
