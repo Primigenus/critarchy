@@ -35,7 +35,7 @@ const schema = makeExecutableSchema({
 addMockFunctionsToSchema({
   mocks,
   schema,
-  preserveResolvers: true,
+  // preserveResolvers: true,
 });
 
 const whitelist = [
