@@ -13,7 +13,7 @@ export default class SignedIn extends React.Component {
       console.error('Something happened with the Sign In request');
     }
     setToken(token);
-    this.props.url.pushTo('/');
+    this.props.url.push('/');
   }
   render() {
     return null;

@@ -14,4 +14,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default layout('Sign in', SignIn)
+export default layout({ title: 'Sign in' })(SignIn);

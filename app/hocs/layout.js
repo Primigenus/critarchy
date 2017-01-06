@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getUserFromCookie, getUserFromLocalStorage } from '../utils/auth';
 
-const layout = (title, Page) => class Layout extends React.Component {
+const layout = ({ title = '' } = {}) => Page => class Layout extends React.Component {
   static getInitialProps(ctx) {
     const currentUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(ctx.req);
     const pageProps = Page.getInitialProps && Page.getInitialProps(ctx);

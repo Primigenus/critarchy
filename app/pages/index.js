@@ -73,7 +73,7 @@ const critList = () => class CritList extends React.Component {
   }
 };
 
-export default layout('', ({ isAuthenticated }) => (
+export default layout()(({ isAuthenticated }) => (
   <div>
     {/* TODO(diedra): Put top-thanked crits of last month here when there are
       * crits going back far enough that this would be useful.
