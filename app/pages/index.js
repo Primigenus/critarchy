@@ -79,7 +79,7 @@ Home.propTypes = {
 };
 
 export default compose(
-  layout({ title: 'Home' }),
+  layout(),
   ApolloHOC({ secure: true }),
   graphql(query),
 )(Home);
