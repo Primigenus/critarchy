@@ -59,13 +59,12 @@ class UploadImage extends React.Component {
       <div>
         <form method="post" onSubmit={ evt => this.onSubmit(evt) } encType="multipart/form-data">
 
-          { uploading ? <div className="loading">Uploading...</div> : <span /> }
-
           <p>
             <label htmlFor="file">File(s) to upload</label>
-            <input type="file" id="file" onChange={ evt => this.changeFiles(evt) } />
+            <input type="file" id="file" multiple onChange={ evt => this.changeFiles(evt) } />
           </p>
-          <p><input type="submit" defaultValue="Upload" disabled={ !!uploading || !!uploadTooBigError } /></p>
+
+          { uploading ? <div className="loading">Uploading...</div> : <span /> }
 
           { uploadTooBigError && <p>Please only select images smaller than 5MB.</p> }
 
@@ -74,6 +73,8 @@ class UploadImage extends React.Component {
               Image queued for upload: { name } ({ this.formatFileSize(size) }).
             </p>)
           }
+
+          <p><input type="submit" defaultValue="Upload" disabled={ !!uploading || !!uploadTooBigError } /></p>
 
           {
             uploadedImages && uploadedImages.map((url, i) => <p key={ i }>
