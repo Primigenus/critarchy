@@ -14,47 +14,68 @@ const UPLOAD_IMAGE = gql`
 `;
 
 class UploadImage extends React.Component {
+  static formatFileSize(size) {
+    // http://stackoverflow.com/a/20463021/16308
+    // eslint-disable-next-line
+    const fn = (a,b,c,d,e) => (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'B':'Bytes');
+    return fn(size);
+  }
   constructor(props) {
     super(props);
     this.state = {
       uploadedImages: null,
       uploadingImages: null,
       uploading: false,
+      uploadError: null,
     };
   }
   changeFiles(evt) {
     this.files = evt.target.files;
 
     const arrayFiles = Array.from(this.files);
+
+    const fileTooBig = arrayFiles.filter(f => f.size >= 5000000).length > 0;
+    const tooManyFiles = arrayFiles.length > 5;
+    let uploadError = null;
+
+    if(fileTooBig) {
+      uploadError = 'Please only select images smaller than 5MB.';
+    }
+    if(tooManyFiles) {
+      uploadError = 'Please upload at most 5 files.';
+    }
+
     this.setState({
-      uploadTooBigError: arrayFiles.filter(f => f.size >= 5000000).length > 0,
+      uploadError,
       uploadingImages: arrayFiles,
     });
-  }
-  formatFileSize(size) {
-    // http://stackoverflow.com/a/20463021/16308
-    // eslint-disable-next-line
-    const fn = (a,b,c,d,e) => (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'B':'Bytes');
-    return fn(size);
   }
   async onSubmit(evt) {
     evt.preventDefault();
     this.setState({
       uploading: true,
     });
-    const result = await uploadClient.mutate({
-      mutation: UPLOAD_IMAGE,
-      variables: { id: 42, files: this.files },
-    });
-    this.setState({
-      uploadedImages: result.data.uploadImage
-        .map(images => images.map(image => image.publicUrl))
-        .reduce((a, b) => a.concat(b)),
-      uploading: false,
-    });
+    let result;
+    try {
+      result = await uploadClient.mutate({
+        mutation: UPLOAD_IMAGE,
+        variables: { id: 42, files: this.files },
+      });
+      this.setState({
+        uploadedImages: result.data.uploadImage
+          .map(images => images.map(image => image.publicUrl))
+          .reduce((a, b) => a.concat(b)),
+        uploading: false,
+      });
+    } catch (e) {
+      this.setState({
+        uploading: false,
+        uploadError: 'An error occurred on the server. Please try again.',
+      });
+    }
   }
   render() {
-    const { uploading, uploadedImages, uploadingImages, uploadTooBigError } = this.state;
+    const { uploading, uploadedImages, uploadingImages, uploadError } = this.state;
     return (
       <div>
         <form method="post" onSubmit={ evt => this.onSubmit(evt) } encType="multipart/form-data">
@@ -66,15 +87,23 @@ class UploadImage extends React.Component {
 
           { uploading ? <div className="loading">Uploading...</div> : <span /> }
 
-          { uploadTooBigError && <p>Please only select images smaller than 5MB.</p> }
+          { uploadError && <p>{ uploadError }</p> }
 
-          { !uploadTooBigError && uploadingImages && uploadingImages
-            .map(({ name, size }, i) => <p key={ i }>
-              Image queued for upload: { name } ({ this.formatFileSize(size) }).
-            </p>)
+          { uploadingImages ?
+            <div>
+              You selected:
+              <ul>
+                { uploadingImages.map((file, i) => <li key={ i }>
+                  <img src={ window.URL.createObjectURL(file) } alt="" style={ { height: 30 } } />
+                  { file.name } ({ UploadImage.formatFileSize(file.size) })
+                  { i + 1 < uploadingImages.length ? ', ' : '' }
+                </li>) }
+              </ul>
+            </div>
+            : null
           }
 
-          <p><input type="submit" defaultValue="Upload" disabled={ !!uploading || !!uploadTooBigError } /></p>
+          <p><input type="submit" defaultValue="Upload" disabled={ !!uploading || !!uploadError } /></p>
 
           {
             uploadedImages && uploadedImages.map((url, i) => <p key={ i }>

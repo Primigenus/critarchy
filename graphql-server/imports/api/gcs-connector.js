@@ -59,6 +59,15 @@ const uploadImage = ({ bucket, file }) => {
   return Promise.all(promises);
 };
 
+const uploadImages = ({ bucket, files }) => {
+  if(files.length > 5) {
+    throw new Error('Too many files queued for upload.');
+  }
+  return Promise.all(files.map(
+    async file => await uploadImage({ bucket, file }),
+  ));
+};
+
 export default async (id, files, settings) => {
   const { GCLOUD_PROJECT_ID, GCS_BUCKET, GCS_KEY_FILENAME } = settings;
   const storage = Storage({
@@ -66,7 +75,6 @@ export default async (id, files, settings) => {
     keyFilename: GCS_KEY_FILENAME,
   });
   const bucket = storage.bucket(GCS_BUCKET);
-  return Promise.all(files.map(
-    async file => await uploadImage({ bucket, file }),
-  ));
+
+  return uploadImages({ bucket, files });
 };
