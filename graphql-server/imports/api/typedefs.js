@@ -69,7 +69,7 @@ export default [`
   }
 
   type Mutation {
-    uploadImage(id: Int!, files: [UploadedFile!]!): [[Image]]
+    uploadImage(files: [UploadedFile!]!): [[Image]]
   }
 
   schema {

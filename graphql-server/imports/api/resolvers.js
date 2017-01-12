@@ -8,11 +8,11 @@ export default {
     },
   },
   Mutation: {
-    async uploadImage(root, { id, files }, { settings }) {
+    async uploadImage(root, { files }, { settings }) {
       if(!files) {
         throw new Error('No files to upload');
       }
-      return await uploadToGCS(id, files, settings);
+      return await uploadToGCS(files, settings);
     },
   },
   HelloWorld: {

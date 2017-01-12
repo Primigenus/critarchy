@@ -68,7 +68,7 @@ const uploadImages = ({ bucket, files }) => {
   ));
 };
 
-export default async (id, files, settings) => {
+export default async (files, settings) => {
   const { GCLOUD_PROJECT_ID, GCS_BUCKET, GCS_KEY_FILENAME } = settings;
   const storage = Storage({
     projectId: GCLOUD_PROJECT_ID,
