@@ -3,6 +3,7 @@ import HtmlHead from '../components/HtmlHead';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getUserFromCookie, getUserFromLocalStorage } from '../utils/auth';
+import { logout } from '../utils/lock';
 
 const layout = ({ title = '' } = {}) => Page => class Layout extends React.Component {
   static getInitialProps(ctx) {
@@ -17,25 +18,22 @@ const layout = ({ title = '' } = {}) => Page => class Layout extends React.Compo
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.logout = () => this.logout();
-  }
-
   componentDidMount() {
-    window.addEventListener('storage', this.logout, false);
+    window.addEventListener('storage', logout, false);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('storage', this.logout, false);
+    window.removeEventListener('storage', logout, false);
   }
 
   render() {
     return (
       <div>
-        <HtmlHead { ...this.props } />
+        <HtmlHead title={ this.props.title } />
         <Header { ...this.props } />
-        <Page { ...this.props } />
+        <main>
+          <Page { ...this.props } />
+        </main>
         <Footer />
       </div>
     );

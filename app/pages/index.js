@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import 'isomorphic-fetch';
 import { graphql, compose } from 'react-apollo';
 import layout from '../hocs/layout';
-import ApolloHOC from '../hocs/apollohoc';
+import withData from '../data/withData';
 import CritThumbnailList from '../components/CritThumbnailList';
 
 /* TODO(diedra): Consider moving queries to a shared file so it's easy to
@@ -80,6 +80,6 @@ Home.propTypes = {
 
 export default compose(
   layout(),
-  ApolloHOC({ secure: true }),
+  withData,
   graphql(query),
 )(Home);
