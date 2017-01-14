@@ -9,7 +9,7 @@ export default [`
 
   type Query {
     test: HelloWorld
-    newestCrits: [Crit]
+    newestCrits(limit: Int): [Crit]
     leastCrittedArt: [Art]
     mostThankedCrits: [Crit]
   }
@@ -19,7 +19,7 @@ export default [`
     createdOn: Float
     name: String
     bio: String
-    avatar: String
+    picture: String
     artCreated: [Art]
     sketchbooksCreated: [Sketchbook]
     critiquesCreated: [Crit]
@@ -46,7 +46,7 @@ export default [`
     createdBy: User
     title: String
     description: String
-    image: String
+    image: Image
     sketchbooks: [Sketchbook]
     critiques: [Crit]
     likedBy: [User]
@@ -66,6 +66,9 @@ export default [`
     id: Int
     publicUrl: String
     filename: String
+    original: String
+    thumb_large: String
+    thumb_small: String
   }
 
   type Mutation {

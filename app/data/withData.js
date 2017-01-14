@@ -3,6 +3,7 @@ import React from 'react';
 import 'isomorphic-fetch';
 import initClient from './initClient';
 import initStore from './initStore';
+import { getUserFromCookie, getUserFromLocalStorage } from '../utils/auth';
 
 export default Component => (
   class withData extends React.Component {
@@ -16,6 +17,7 @@ export default Component => (
       const isServer = !!req;
       const client = initClient(null, isServer);
       const store = initStore(client, client.initialState, isServer);
+      const currentUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(req);
 
       if(isServer) {
         const app = (
@@ -35,6 +37,7 @@ export default Component => (
 
       return {
         initialState,
+        currentUser,
       };
     }
 

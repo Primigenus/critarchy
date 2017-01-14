@@ -26,9 +26,11 @@ export default class CritThumbnail extends React.Component {
             />
           </div>
           <img
-            src={ this.props.crit.art.image }
+            src={ this.props.crit.art.image.thumb_large }
             alt={ this.props.crit.art.title } /* TODO: improve alt description */
           />
+          <br />
+          by { this.props.crit.art.createdBy.name }
         </div>
       </div>
     );
@@ -40,29 +42,33 @@ CritThumbnail.propTypes = {
    * file that can be reused in the propTypes of different components.
    */
   crit: React.PropTypes.shape({
-    id: React.PropTypes.string.isRequired,
     // The date the critique was created in miliseconds
+    id: React.PropTypes.string.isRequired,
     createdOn: React.PropTypes.number.isRequired,
     createdBy: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
       name: React.PropTypes.string.isRequired,
       // URL to the avatar of the user that created this critique
-      avatar: React.PropTypes.string.isRequired,
+      picture: React.PropTypes.string.isRequired,
     }),
     title: React.PropTypes.string.isRequired,
     content: React.PropTypes.string.isRequired,
     art: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
+      createdBy: React.PropTypes.shape({
+        name: React.PropTypes.string.isRequired,
+        // URL to the avatar of the user that created this critique
+        picture: React.PropTypes.string.isRequired,
+      }),
       // URL to the image for the art that this critique is for
-      image: React.PropTypes.string.isRequired,
+      image: React.PropTypes.shape({
+        thumb_large: React.PropTypes.string.isRequired,
+      }),
     }),
     thankedBy: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        id: React.PropTypes.string.isRequired,
         name: React.PropTypes.string.isRequired,
         // URL to the avatar of the user that thanked this critique
-        avatar: React.PropTypes.string.isRequired,
+        picture: React.PropTypes.string.isRequired,
       }),
     ),
   }),

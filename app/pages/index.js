@@ -11,26 +11,28 @@ import CritThumbnailList from '../components/CritThumbnailList';
  * probably be queried in a few places uses the same or very similar queries.)
  */
 const query = gql`
-  query testQuery {
-    newestCrits {
+  query {
+    newestCrits(limit: 10) {
       id
       createdOn
       createdBy {
-        id
         name
-        avatar
+        picture
       }
       title
       content
       art {
-        id
+        createdBy {
+          name
+        }
         title
-        image
+        image {
+          thumb_large
+        }
       }
       thankedBy {
-        id
         name
-        avatar
+        picture
       }
     }
   }

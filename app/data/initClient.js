@@ -14,7 +14,7 @@ export default (initialState) => {
     networkInterface: createNetworkInterface({
       uri: 'http://localhost:4000/graphql',
       opts: {
-        credentials: 'same-origin',
+        credentials: 'include',
       },
     }),
   });
