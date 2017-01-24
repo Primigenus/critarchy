@@ -1,32 +1,20 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-
-const isServer = typeof window === 'undefined';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 
 export default (client, initialState) => {
-  if(isServer) {
-    return createStore(
-      combineReducers({
-        apollo: client.reducer(),
-      }),
+  if(!process.browser || !window.REDUX_STORE) {
+    const reducer = combineReducers({
+      apollo: client.reducer(),
+    });
+    const middleware = applyMiddleware(client.middleware());
+    const store = createStore(
+      reducer,
       initialState,
-      compose(
-        applyMiddleware(client.middleware()),
-      ),
+      middleware,
     );
-  } else { // eslint-disable-line no-else-return
-    if(!window.store) {
-      window.store = createStore(
-        combineReducers({
-          apollo: client.reducer(),
-        }),
-        initialState,
-        compose(
-          applyMiddleware(client.middleware()),
-          // If you are using the devToolsExtension, you can add it here also
-          window.devToolsExtension ? window.devToolsExtension() : f => f,
-        ),
-      );
+    if(!process.browser) {
+      return store;
     }
-    return window.store;
+    window.REDUX_STORE = store;
   }
+  return window.REDUX_STORE;
 };
