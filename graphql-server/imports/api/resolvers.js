@@ -2,25 +2,30 @@ import parseJSONLiteral from './parseJsonLiteral';
 
 export default {
   Query: {
-    test() {
-      return 'testing testing';
-    },
     newestCrits(root, args, context) {
       return context.connectors.crits.newest(args.limit);
+    },
+    sketchbook(root, args, context) {
+      return context.connectors.art.getByPageNum(args.page);
     },
   },
   Mutation: {
     async uploadImage(root, { files }, { settings, user, connectors }) {
-      // console.log('uploadImage resolver', user);
+      if(!user) {
+        throw new Error('Not authorized.');
+      }
       if(!files) {
         throw new Error('No files to upload');
       }
-      return await connectors.uploadToGCS(files, settings);
+      const uploadedFiles = await connectors.uploadToGCS(files, settings);
+      const artIds = await connectors.art.addUploadedFiles(user.user_id, uploadedFiles);
+      await connectors.sketchbooks.addArtToSketchbook(user, artIds);
+      return uploadedFiles;
     },
   },
   Crit: {
     id(crit) {
-      return crit._id;
+      return crit._id; // eslint-disable-line no-underscore-dangle
     },
     art(crit, args, context) {
       return context.connectors.art.getById(crit.art_id);
@@ -33,12 +38,16 @@ export default {
     },
   },
   Art: {
+    id(art) {
+      return art._id; // eslint-disable-line no-underscore-dangle
+    },
     createdBy(art, args, context) {
       return context.connectors.users.getById(art.createdBy);
     },
-  },
-  HelloWorld: {
-    hello: () => 'Herpderp!',
+    numCrits(art) {
+       // eslint-disable-next-line no-underscore-dangle
+      return art.critiques ? art.critiques.length : 0;
+    },
   },
   UploadedFile: {
     __parseLiteral: parseJSONLiteral,

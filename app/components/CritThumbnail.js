@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import ThumbsUpIcon from '../components/icons/ThumbsUpIcon';
 
 /*
  * Displays a single critique.
  */
-export default class CritThumbnail extends React.Component {
+export default class CritThumbnail extends Component {
   static defaultProps = {
     // Critiques are expanded by default, but can be minimized by the user or
     // rendered minimized by its parent component if desired.
@@ -37,41 +37,32 @@ export default class CritThumbnail extends React.Component {
   }
 }
 
+const userShape = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+});
+
 CritThumbnail.propTypes = {
   /* TODO(diedra): Split this off into a separate object in a shared propTypes
    * file that can be reused in the propTypes of different components.
    */
-  crit: React.PropTypes.shape({
-    // The date the critique was created in miliseconds
-    id: React.PropTypes.string.isRequired,
-    createdOn: React.PropTypes.number.isRequired,
-    createdBy: React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      // URL to the avatar of the user that created this critique
-      picture: React.PropTypes.string.isRequired,
-    }),
-    title: React.PropTypes.string.isRequired,
-    content: React.PropTypes.string.isRequired,
-    art: React.PropTypes.shape({
-      title: React.PropTypes.string.isRequired,
-      createdBy: React.PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
-        // URL to the avatar of the user that created this critique
-        picture: React.PropTypes.string.isRequired,
+  crit: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    createdOn: PropTypes.number.isRequired,
+    createdBy: userShape,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    art: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      createdBy: PropTypes.shape({
+        name: PropTypes.string.isRequired,
       }),
-      // URL to the image for the art that this critique is for
-      image: React.PropTypes.shape({
-        thumb_large: React.PropTypes.string.isRequired,
+      image: PropTypes.shape({
+        thumb_large: PropTypes.string.isRequired,
       }),
     }),
-    thankedBy: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
-        // URL to the avatar of the user that thanked this critique
-        picture: React.PropTypes.string.isRequired,
-      }),
-    ),
+    thankedBy: PropTypes.arrayOf(userShape),
   }),
   // Whether this crit should be initially rendered as expanded
-  expanded: React.PropTypes.bool,
+  expanded: PropTypes.bool,
 };

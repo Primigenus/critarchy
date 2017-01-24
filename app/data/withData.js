@@ -14,8 +14,7 @@ export default Component => (
       initialState: React.PropTypes.object,
     }
     static async getInitialProps({ req, query, pathname }) {
-      const isServer = !!req;
-      const client = initClient(null, isServer);
+      const client = initClient(null, req);
       const store = initStore(client, client.initialState, isServer);
       const currentUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(req);
 

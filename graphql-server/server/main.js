@@ -17,6 +17,7 @@ import uploadToGCS from '../imports/data/connectors/uploadToGCS';
 import CritsConnector from '../imports/data/connectors/CritsConnector';
 import ArtConnector from '../imports/data/connectors/ArtConnector';
 import UsersConnector from '../imports/data/connectors/UsersConnector';
+import SketchbooksConnector from '../imports/data/connectors/SketchbooksConnector';
 
 import '../imports/data/seed_data';
 
@@ -41,6 +42,7 @@ const connectors = {
   crits: CritsConnector,
   art: ArtConnector,
   users: UsersConnector,
+  sketchbooks: SketchbooksConnector,
 };
 
 const context = {
@@ -49,10 +51,12 @@ const context = {
 };
 
 const currentUser = (req, res, next) => {
-  const userFromCookie = context.connectors.users.getUserFromCookie(req.headers.cookie);
-  context.connectors.users.storeUser(userFromCookie);
-  req.user = userFromCookie; // eslint-disable-line no-param-reassign
-  next();
+  if(req.headers.authorization) {
+    const userFromToken = connectors.users.getUserFromToken(req.headers.authorization);
+    connectors.users.storeUser(userFromToken);
+    req.user = userFromToken; // eslint-disable-line no-param-reassign
+  }
+  return next();
 };
 
 // addMockFunctionsToSchema({

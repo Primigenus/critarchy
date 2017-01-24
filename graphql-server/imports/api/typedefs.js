@@ -2,16 +2,11 @@
 export default [`
   scalar UploadedFile
 
-  type HelloWorld {
-    hello: String
-    name: String
-  }
-
   type Query {
-    test: HelloWorld
     newestCrits(limit: Int): [Crit]
     leastCrittedArt: [Art]
     mostThankedCrits: [Crit]
+    sketchbook(page: Int): [Art]
   }
 
   type User {
@@ -50,6 +45,7 @@ export default [`
     sketchbooks: [Sketchbook]
     critiques: [Crit]
     likedBy: [User]
+    numCrits: Int
   }
 
   type Crit {

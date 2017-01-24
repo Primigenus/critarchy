@@ -50,13 +50,10 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <CritThumbnailList
-            crits={ this.props.data.newestCrits }
-            critsAreExpanded={ false }
-          />
-        </div>
-
+        <CritThumbnailList
+          crits={ this.props.data.newestCrits }
+          critsAreExpanded={ false }
+        />
         {/* TODO(diedra): Update this to be least-critted art of the last two
           * weeks here when we have art going back far enough that they're
           * outdated.

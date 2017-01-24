@@ -39,6 +39,7 @@ const uploadImageWithSize = ({ bucket, file, size }) => new Promise((resolve, re
 
   blobStream.on('finish', () => {
     resolve({
+      size,
       filename: file.originalname,
       publicUrl: `https://storage.googleapis.com/${bucket.name}/${filename}`,
     });
