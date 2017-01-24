@@ -6,13 +6,17 @@ import { getUserFromCookie, getUserFromLocalStorage } from '../utils/auth';
 import { logout } from '../utils/lock';
 
 const layout = ({ title = '' } = {}) => Page => class Layout extends React.Component {
+  static propTypes = {
+    pageTitle: React.PropTypes.string,
+  }
+
   static getInitialProps(ctx) {
     const currentUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(ctx.req);
     const pageProps = Page.getInitialProps && Page.getInitialProps(ctx);
     const pageTitle = typeof title === 'function' ? title(currentUser) : title;
     return {
       ...pageProps,
-      title: pageTitle,
+      pageTitle,
       currentUser,
       currentUrl: ctx.pathname,
       isAuthenticated: !!currentUser,
@@ -28,12 +32,13 @@ const layout = ({ title = '' } = {}) => Page => class Layout extends React.Compo
   }
 
   render() {
+    const { pageTitle, ...otherProps } = this.props;
     return (
       <div>
-        <HtmlHead title={ this.props.title } />
-        <Header { ...this.props } />
+        <HtmlHead title={ pageTitle } />
+        <Header { ...otherProps } />
         <main>
-          <Page { ...this.props } />
+          <Page { ...otherProps } />
         </main>
         <Footer />
       </div>
