@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next/prefetch';
 import React from 'react';
 
 const signInLink = <Link href="/auth/sign-in"><a>Sign in</a></Link>;
