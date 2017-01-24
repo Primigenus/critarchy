@@ -23,7 +23,7 @@ export default Component => (
       if(isServer) {
         const app = (
           <ApolloProvider client={ client } store={ store }>
-            <Component { ...this.props } url={ { query, pathname } } />
+            <Component currentUser={ currentUser } { ...this.props } url={ { query, pathname } } />
           </ApolloProvider>
         );
         await getDataFromTree(app);
