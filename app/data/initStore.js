@@ -1,7 +1,9 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 
-export default (client, initialState, isServer) => {
-  if(typeof window === 'undefined') {
+const isServer = typeof window === 'undefined';
+
+export default (client, initialState) => {
+  if(isServer) {
     return createStore(
       combineReducers({
         apollo: client.reducer(),

@@ -49,8 +49,8 @@ class Sketchbook extends React.Component {
     const { sketchbook } = this.props.data;
     return (
       <ul>
-        { sketchbook.map(art => (
-          <li>
+        { sketchbook.map((art, i) => (
+          <li key={ i }>
             <h2>{ art.title }</h2>
             <img src={ art.image.thumb_small } alt="" />
             <p>Posted <TimeAgo date={ art.createdOn } /> - { art.numCrits } crits</p>

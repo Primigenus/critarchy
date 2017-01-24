@@ -5,6 +5,8 @@ import initClient from './initClient';
 import initStore from './initStore';
 import { getUserFromCookie, getUserFromLocalStorage } from '../utils/auth';
 
+const isServer = typeof window === 'undefined';
+
 export default Component => (
   class withData extends React.Component {
     static propTypes = {
@@ -15,7 +17,7 @@ export default Component => (
     }
     static async getInitialProps({ req, query, pathname }) {
       const client = initClient(null, req);
-      const store = initStore(client, client.initialState, isServer);
+      const store = initStore(client, client.initialState);
       const currentUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(req);
 
       if(isServer) {
