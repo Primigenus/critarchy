@@ -9,9 +9,10 @@ const layout = ({ title = '' } = {}) => Page => class Layout extends React.Compo
   static getInitialProps(ctx) {
     const currentUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(ctx.req);
     const pageProps = Page.getInitialProps && Page.getInitialProps(ctx);
+    const pageTitle = typeof title === 'function' ? title(currentUser) : title;
     return {
       ...pageProps,
-      title,
+      title: pageTitle,
       currentUser,
       currentUrl: ctx.pathname,
       isAuthenticated: !!currentUser,
@@ -41,7 +42,7 @@ const layout = ({ title = '' } = {}) => Page => class Layout extends React.Compo
 };
 
 layout.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  options: React.PropTypes.object,
   Page: React.PropTypes.element.isRequired,
 };
 

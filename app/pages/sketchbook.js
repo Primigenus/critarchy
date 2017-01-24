@@ -62,7 +62,7 @@ class Sketchbook extends React.Component {
 }
 
 export default compose(
-  layout(),
+  layout({ title: currentUser => `${currentUser.name}'s sketchbook` }),
   withData,
   graphql(SKETCHBOOK_QUERY),
 )(Sketchbook);
