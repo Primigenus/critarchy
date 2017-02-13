@@ -13,6 +13,8 @@ export default [`
     id: String
     createdOn: Float
     name: String
+    first_name: String
+    surname: String
     bio: String
     picture: String
     artCreated: [Art]

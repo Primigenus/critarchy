@@ -7,7 +7,10 @@ import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import bodyParser from 'body-parser';
 import multer from 'multer';
 import express from 'express';
-import cors from 'cors';
+// import cors from 'cors';
+
+import '../imports/startup/server/publications';
+import '../imports/startup/server/accounts';
 
 import typeDefs from '../imports/api/typedefs';
 import resolvers from '../imports/api/resolvers';
@@ -50,14 +53,14 @@ const context = {
   connectors,
 };
 
-const currentUser = (req, res, next) => {
-  if(req.headers.authorization) {
-    const userFromToken = connectors.users.getUserFromToken(req.headers.authorization);
-    connectors.users.storeUser(userFromToken);
-    req.user = userFromToken; // eslint-disable-line no-param-reassign
-  }
-  return next();
-};
+// const currentUser = (req, res, next) => {
+//   if(req.headers.authorization) {
+//     const userFromToken = connectors.users.getUserFromToken(req.headers.authorization);
+//     connectors.users.storeUser(userFromToken);
+//     req.user = userFromToken; // eslint-disable-line no-param-reassign
+//   }
+//   return next();
+// };
 
 // addMockFunctionsToSchema({
 //   mocks,
@@ -65,25 +68,26 @@ const currentUser = (req, res, next) => {
 //   // preserveResolvers: true,
 // });
 
-const whitelist = [
-  'http://localhost:3000',
-];
-const corsOptions = {
-  origin(origin, cb) {
-    const originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-    cb(null, originIsWhitelisted);
-  },
-  credentials: true,
-};
-graphQLServer.use('*', cors(corsOptions));
+// const whitelist = [
+//   'http://localhost:3000',
+// ];
+// const corsOptions = {
+//   origin(origin, cb) {
+//     const originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+//     cb(null, originIsWhitelisted);
+//   },
+//   credentials: true,
+// };
+// graphQLServer.use('*', cors(corsOptions));
 
 graphQLServer.use(ENDPOINT_URL,
   upload.array('files'),
   bodyParser.json(),
-  currentUser,
+  // currentUser,
   graphqlExpressUpload({ endpointURL: ENDPOINT_URL }), // after multer and before graphqlExpress
-  graphqlExpress(req => ({
+  graphqlExpress(() => ({
     schema,
+    context,
     formatError(error) {
       // surface errors to the terminal
       if(Meteor.isDevelopment) {
@@ -91,7 +95,6 @@ graphQLServer.use(ENDPOINT_URL,
       }
       return error;
     },
-    context: { ...context, user: req.user },
   })),
 );
 
@@ -102,3 +105,4 @@ graphQLServer.use('/graphiql', graphiqlExpress({
 
 // This binds the specified paths to the Express server running Apollo + GraphiQL
 WebApp.connectHandlers.use(Meteor.bindEnvironment(graphQLServer));
+WebApp.addHtmlAttributeHook(() => ({ lang: 'en' }));

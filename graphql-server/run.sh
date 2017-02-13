@@ -1,2 +1,2 @@
 
-meteor --port 4000 --settings settings.json
+meteor --port 3000 --settings settings.json

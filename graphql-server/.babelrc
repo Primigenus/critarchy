@@ -1,0 +1,4 @@
+{
+  "presets": ["meteor"],
+  "plugins": ["transform-class-properties"]
+}

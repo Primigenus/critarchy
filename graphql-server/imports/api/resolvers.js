@@ -49,6 +49,32 @@ export default {
       return art.critiques ? art.critiques.length : 0;
     },
   },
+  User: {
+    name(user) {
+      if(user.services.google) {
+        return user.services.google.name;
+      } else if(user.services.facebook) {
+        return user.services.facebook.name;
+      }
+      return user.profile.name;
+    },
+    first_name(user) {
+      if(user.services.google) {
+        return user.services.google.given_name;
+      } else if(user.services.facebook) {
+        return user.services.facebook.first_name;
+      }
+      return null;
+    },
+    surname(user) {
+      if(user.services.google) {
+        return user.services.google.family_name;
+      } else if(user.services.facebook) {
+        return user.services.facebook.last_name;
+      }
+      return null;
+    },
+  },
   UploadedFile: {
     __parseLiteral: parseJSONLiteral,
     __serialize: value => value,
