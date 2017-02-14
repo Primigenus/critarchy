@@ -6,7 +6,9 @@ if(Meteor.isDevelopment) {
     Collections.Crits.remove({});
     Collections.Art.remove({});
 
-    const userId = Collections.Users.findOne()._id;
+    const user = Collections.Users.findOne();
+    if(!user) return;
+    const userId = user._id;
 
     const artId = Collections.Art.insert({
       createdBy: userId,
