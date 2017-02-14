@@ -1,17 +1,22 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Accounts } from 'meteor/std:accounts-ui';
+import { Link } from 'react-router';
 
-const uploadLink = <a href="/upload">Upload art</a>;
+const uploadLink = <li><Link to="/upload">Upload art</Link></li>;
+const sketchbookLink = <li><Link to="/sketchbook">Sketchbook</Link></li>;
+const signinLink = <li><Link to="/signin">Sign in</Link></li>;
 
 const Header = ({ hasUser, user }) => (
   <header>
-    <a href="/">Critarchy</a>
-    { hasUser && <span>logged in as { hasUser && user.name }</span> }
-    <div>
-      <Accounts.ui.LoginForm />
-    </div>
-    { hasUser && uploadLink }
+    <Link to="/">Critarchy</Link>
+    { hasUser && <span>logged in as { user.name }</span> }
+    <nav>
+      <ul>
+        { hasUser && uploadLink }
+        { hasUser && sketchbookLink }
+        { !hasUser && signinLink }
+      </ul>
+    </nav>
   </header>
 );
 

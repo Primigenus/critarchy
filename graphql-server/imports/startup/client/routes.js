@@ -6,10 +6,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-client';
 
+import withUser from '../../ui/hocs/withUser';
+
 import App from '../../ui/app';
 import Home from '../../ui/pages/index';
 import Upload from '../../ui/pages/upload';
 import Sketchbook from '../../ui/pages/sketchbook';
+import SignIn from '../../ui/pages/signin';
 
 const client = new ApolloClient(meteorClientConfig());
 
@@ -36,13 +39,17 @@ export default () => (
         <IndexRoute component={ Home } />
         <Route
           path="/upload"
-          component={ Upload }
+          component={ withUser(Upload) }
           onEnter={ requireAuth }
         />
         <Route
           path="/sketchbook"
-          component={ Sketchbook }
+          component={ withUser(Sketchbook) }
           onEnter={ requireAuth }
+        />
+        <Route
+          path="/signin"
+          component={ withUser(SignIn) }
         />
       </Route>
     </Router>

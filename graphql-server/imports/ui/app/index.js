@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import withUser from '../hocs/withUser';
 
-class App extends withUser {
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -23,4 +23,4 @@ App.propTypes = {
   children: React.PropTypes.element,
 };
 
-export default withRouter(App);
+export default withRouter(withUser(App));

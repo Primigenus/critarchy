@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import React from 'react';
 import Tracker from 'tracker-component';
 
-export default class withUser extends Tracker.Component {
+export default WrappedComponent => class withUser extends Tracker.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,4 +16,7 @@ export default class withUser extends Tracker.Component {
       });
     });
   }
-}
+  render() {
+    return <WrappedComponent { ...this.props } { ...this.state } />;
+  }
+};

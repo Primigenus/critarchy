@@ -20,9 +20,6 @@ shell-server@0.2.2-rc.5            # Server-side component of the `meteor shell`
 apollo
 accounts-google@1.1.0-rc.5
 accounts-facebook@1.1.0-rc.5
-react-meteor-data
 splendido:accounts-meld
-std:accounts-ui
-std:accounts-basic
 templating
 dynamic-import
