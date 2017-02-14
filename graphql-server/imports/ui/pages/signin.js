@@ -1,43 +1,42 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import { locationShape, browserHistory } from 'react-router';
 
 export default class SignIn extends React.Component {
   static propTypes = {
     hasUser: React.PropTypes.bool,
+    location: locationShape,
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: props.location.state && props.location.state.redirect.pathname,
+    };
   }
   onClickGoogle(evt) {
     evt.preventDefault();
     Meteor.loginWithGoogle(() => {
-      window.location.href = '/';
+      browserHistory.push(this.state.redirect || '/');
     });
   }
   onClickFacebook(evt) {
     evt.preventDefault();
     Meteor.loginWithFacebook(() => {
-      window.location.href = '/';
+      browserHistory.push(this.state.redirect || '/');
     });
   }
-  signout(evt) {
-    evt.preventDefault();
-    Meteor.logout();
-  }
   render() {
+    const { redirect } = this.state;
     return (
       <div>
         <h1>Sign in</h1>
-        <form>
-          <div>
-            { !this.props.hasUser
-              ? <div>
-                <button onClick={ e => this.onClickGoogle(e) }>Sign in with Google</button>
-                <button onClick={ e => this.onClickFacebook(e) }>Sign in with Facebook</button>
-              </div>
-              : <div>
-                <button onClick={ e => this.signout(e) }>Sign out</button>
-              </div>
-            }
-          </div>
-        </form>
+        { redirect && <p>Please sign in to continue.</p> }
+        <div>
+          { !this.props.hasUser && <div>
+            <button onClick={ e => this.onClickGoogle(e) }>Sign in with Google</button>
+            <button onClick={ e => this.onClickFacebook(e) }>Sign in with Facebook</button>
+          </div> }
+        </div>
       </div>
     );
   }
