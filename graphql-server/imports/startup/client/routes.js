@@ -13,6 +13,7 @@ import Home from '../../ui/pages/index';
 import Upload from '../../ui/pages/upload';
 import Sketchbook from '../../ui/pages/sketchbook';
 import SignIn from '../../ui/pages/signin';
+import Profile from '../../ui/pages/profile';
 
 const client = new ApolloClient(meteorClientConfig());
 
@@ -50,6 +51,11 @@ export default () => (
         <Route
           path="/signin"
           component={ withUser(SignIn) }
+        />
+        <Route
+          path="/profile"
+          component={ withUser(Profile) }
+          onEnter={ requireAuth }
         />
       </Route>
     </Router>
