@@ -21,6 +21,7 @@ const query = gql`
       art {
         createdBy {
           name
+          picture
         }
         title
         image {

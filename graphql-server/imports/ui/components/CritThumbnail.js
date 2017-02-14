@@ -3,7 +3,7 @@ import ThumbsUpIcon from '../components/icons/ThumbsUpIcon';
 
 const userShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
-  picture: PropTypes.string.isRequired,
+  picture: PropTypes.string,
 });
 
 /*
@@ -22,9 +22,7 @@ export default class CritThumbnail extends Component {
       content: PropTypes.string.isRequired,
       art: PropTypes.shape({
         title: PropTypes.string.isRequired,
-        createdBy: PropTypes.shape({
-          name: PropTypes.string.isRequired,
-        }),
+        createdBy: userShape,
         image: PropTypes.shape({
           thumb_large: PropTypes.string.isRequired,
         }),
@@ -60,7 +58,8 @@ export default class CritThumbnail extends Component {
             alt={ this.props.crit.art.title } /* TODO: improve alt description */
           />
           <br />
-          by { this.props.crit.art.createdBy.name }
+          by <img src={ this.props.crit.art.createdBy.picture } alt="" width="40" height="40" />
+          { this.props.crit.art.createdBy.name }
         </div>
       </div>
     );
