@@ -4,6 +4,7 @@ Meteor.publish('userDetails', function publishUserDetails() {
   return Meteor.users.find(this.userId, { fields: {
     createdAt: 1,
     name: 1,
+    picture: 1,
 
     'services.facebook.name': 1,
     'services.facebook.email': 1,
