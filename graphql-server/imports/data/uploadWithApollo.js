@@ -1,12 +1,26 @@
 import ApolloClient from 'apollo-client';
 import createNetworkInterface from 'apollo-upload-network-interface';
+import { Accounts } from 'meteor/accounts-base';
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'http://localhost:3000/graphql',
   opts: {
     credentials: 'include',
   },
 });
+
+// distilled from https://github.com/apollographql/meteor-integration/blob/master/main-client.js#L47
+networkInterface.use([{
+  applyMiddleware(request, next) {
+    if(!request.options.headers) {
+      Object.assign(request.options, { headers: new Headers() });
+    }
+    Object.assign(request.options.headers, {
+      Authorization: Accounts._storedLoginToken(),
+    });
+    next();
+  },
+}]);
 
 networkInterface.useAfter([{
   applyAfterware({ response }, next) {

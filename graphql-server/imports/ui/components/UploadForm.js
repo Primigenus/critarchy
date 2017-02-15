@@ -54,6 +54,7 @@ export default class UploadForm extends React.Component {
         uploading: false,
       });
     } catch (e) {
+      console.error(e);
       this.setState({
         uploading: false,
         uploadError: 'An error occurred on the server. Please try again.',

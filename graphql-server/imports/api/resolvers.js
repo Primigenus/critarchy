@@ -18,7 +18,7 @@ export default {
         throw new Error('No files to upload');
       }
       const uploadedFiles = await connectors.uploadToGCS(files, settings);
-      const artIds = await connectors.art.addUploadedFiles(user.user_id, uploadedFiles);
+      const artIds = await connectors.art.addUploadedFiles(user._id, uploadedFiles);
       await connectors.sketchbooks.addArtToSketchbook(user, artIds);
       return uploadedFiles;
     },
