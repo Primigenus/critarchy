@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import withUser from '../hocs/withUser';
 
+import './index.css';
+
 class App extends React.Component {
   render() {
     return (

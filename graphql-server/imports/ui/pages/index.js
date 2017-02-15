@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import CritThumbnailList from '../components/CritThumbnailList';
+import HomeBanner from '../components/HomeBanner';
 
 /* TODO(diedra): Consider moving queries to a shared file so it's easy to
  * query the same data from multiple places. (Crits in particular will
@@ -44,35 +45,23 @@ class Home extends React.Component {
       mostThankedCrits: [],
     },
   }
-
+  static propTypes = {
+    data: React.PropTypes.shape({
+      loading: React.PropTypes.bool,
+      newestCrits: React.PropTypes.array,
+    }),
+  }
   render() {
     return (
       <div>
+        <HomeBanner />
         <CritThumbnailList
           crits={ this.props.data.newestCrits }
           critsAreExpanded={ false }
         />
-        {/* TODO(diedra): Update this to be least-critted art of the last two
-          * weeks here when we have art going back far enough that they're
-          * outdated.
-          */}
-        <div>Least-critted art of all time will go here</div>
-
-        {/* TODO(diedra): Put top-thanked crits of last month here when there
-          * are crits going back far enough that this would be useful.
-          */}
-
-        {/* <div>Top-thanked crits of all time will go here</div> */}
       </div>
     );
   }
 }
-
-Home.propTypes = {
-  data: React.PropTypes.shape({
-    loading: React.PropTypes.bool,
-    newestCrits: React.PropTypes.array,
-  }),
-};
 
 export default graphql(query)(Home);
