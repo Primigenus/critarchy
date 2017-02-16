@@ -2,14 +2,12 @@ import { Meteor } from 'meteor/meteor'; // eslint-disable-line
 import { WebApp } from 'meteor/webapp'; // eslint-disable-line
 import { Accounts } from 'meteor/accounts-base'; // eslint-disable-line
 import { _ } from 'meteor/underscore'; // eslint-disable-line
+import { createApolloServer } from 'meteor/apollo'; // eslint-disable-line
 
-import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 import graphqlExpressUpload from 'graphql-server-express-upload';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import bodyParser from 'body-parser';
 import multer from 'multer';
-import express from 'express';
-// import cors from 'cors';
 
 import '../imports/startup/server/publications';
 import '../imports/startup/server/accounts';
@@ -26,8 +24,7 @@ import SketchbooksConnector from '../imports/data/connectors/SketchbooksConnecto
 
 import '../imports/data/seed_data';
 
-const ENDPOINT_URL = '/graphql';
-const graphQLServer = express();
+WebApp.addHtmlAttributeHook(() => ({ lang: 'en' }));
 
 const upload = multer({
   // TODO: storing 5MB images in memory... probably won't scale
@@ -50,60 +47,34 @@ const connectors = {
   sketchbooks: SketchbooksConnector,
 };
 
-const context = {
-  settings: Meteor.settings.private,
-  connectors,
-};
-
 // addMockFunctionsToSchema({
 //   mocks,
 //   schema,
 //   // preserveResolvers: true,
 // });
 
-const addUser = async (authToken) => {
-  if(!authToken) return {};
-  const hashedToken = Accounts._hashLoginToken(authToken);
-  const user = await Meteor.users.findOne(
-    { 'services.resume.loginTokens.hashedToken': hashedToken },
-  );
-  if(user) {
-    const loginToken = _.findWhere(user.services.resume.loginTokens, { hashedToken });
-    const expiresAt = Accounts._tokenExpiration(loginToken.when);
-    const isExpired = expiresAt < new Date();
-    if(!isExpired) {
-      console.log('logged in. set user on context');
-      return { user, userId: user._id };
+createApolloServer({
+  schema,
+  context: {
+    settings: Meteor.settings.private,
+    connectors,
+  },
+  formatError(error) {
+    // surface errors to the terminal
+    if(Meteor.isDevelopment) {
+      console.error(error.stack);
     }
-  }
-  return {};
-};
-
-graphQLServer.use(ENDPOINT_URL,
-  upload.array('files'),
-  bodyParser.json(),
-  graphqlExpressUpload({ endpointURL: ENDPOINT_URL }), // after multer and before graphqlExpress
-  graphqlExpress(async req => ({
-    schema,
-    context: {
-      ...context,
-      ...(await addUser(req.headers.authorization)),
-    },
-    formatError(error) {
-      // surface errors to the terminal
-      if(Meteor.isDevelopment) {
-        console.error(error.stack);
-      }
-      return error;
-    },
-  })),
-);
-
-graphQLServer.use('/graphiql', graphiqlExpress({
-  endpointURL: ENDPOINT_URL,
-}));
-
-
-// This binds the specified paths to the Express server running Apollo + GraphiQL
-WebApp.connectHandlers.use(Meteor.bindEnvironment(graphQLServer));
-WebApp.addHtmlAttributeHook(() => ({ lang: 'en' }));
+    return error;
+  },
+  debug: Meteor.isDevelopment,
+}, {
+  configServer: (expressServer) => {
+    expressServer.use(
+      upload.array('files'),
+      bodyParser.json(),
+      // XXX: for some reason, req.baseUrl is empty, so since the upload middleware
+      // compares baseUrl with endpointURL, configure it as empty as well
+      graphqlExpressUpload({ endpointURL: '' }), // after multer and before graphqlExpress
+    );
+  },
+});
