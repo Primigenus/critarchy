@@ -1,5 +1,8 @@
 .home-banner {
   background-color: #eee;
   padding: 2rem;
+}
+.home-banner h1 {
   font-size: 1.25rem;
+  margin-top: 0;
 }
