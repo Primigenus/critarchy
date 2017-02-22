@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import ThumbsUpIcon from '../components/icons/ThumbsUpIcon';
+import Art from '../components/Art';
 
 const userShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
@@ -53,9 +54,10 @@ export default class CritThumbnail extends Component {
               isLiked={ false }
             />
           </div>
-          <img
-            src={ this.props.crit.art.image.thumb_large }
-            alt={ this.props.crit.art.title } /* TODO: improve alt description */
+          <Art
+            image={ this.props.crit.art.image }
+            alt={ this.props.crit.art.title }
+            size="large"
           />
           <br />
           by <img src={ this.props.crit.art.createdBy.picture } alt="" width="40" height="40" />
