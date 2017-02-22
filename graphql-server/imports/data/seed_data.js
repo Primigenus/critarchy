@@ -15,9 +15,9 @@ if(Meteor.isDevelopment) {
       createdOn: +new Date(),
       title: 'Fires of Titan',
       image: {
-        original: 'https://storage.googleapis.com/critarchy_images/1483178894522_firesoftitan_orig.png',
-        thumb_large: 'https://storage.googleapis.com/critarchy_images/1483178894531_firesoftitan_600.jpg',
-        thumb_small: 'https://storage.googleapis.com/critarchy_images/1483178894536_firesoftitan_320.jpg',
+        original: 'https://storage.googleapis.com/critarchy_images/1487201869762_firesoftitan_orig.png',
+        thumb_large: 'https://storage.googleapis.com/critarchy_images/1487201869769_firesoftitan_600.jpg',
+        thumb_small: 'https://storage.googleapis.com/critarchy_images/1487201869774_firesoftitan_320.jpg',
       },
     });
 
