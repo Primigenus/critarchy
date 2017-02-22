@@ -4,10 +4,6 @@ import { graphql } from 'react-apollo';
 import CritThumbnailList from '../components/CritThumbnailList';
 import HomeBanner from '../components/HomeBanner';
 
-/* TODO(diedra): Consider moving queries to a shared file so it's easy to
- * query the same data from multiple places. (Crits in particular will
- * probably be queried in a few places uses the same or very similar queries.)
- */
 const query = gql`
   query {
     newestCrits(limit: 10) {
