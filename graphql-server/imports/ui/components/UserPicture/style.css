@@ -1,4 +1,7 @@
 .user-picture {
+  display: inline;
+}
+.user-picture-img {
   border-radius: 50%;
   vertical-align: bottom;
   margin-left: 4px;
