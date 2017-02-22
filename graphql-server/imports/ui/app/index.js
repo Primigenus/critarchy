@@ -1,11 +1,8 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
-import withUser from '../hocs/withUser';
 
-import './index.css';
+import '../style/global.css';
 
 class App extends React.Component {
   render() {
@@ -24,4 +21,4 @@ App.propTypes = {
   children: React.PropTypes.element,
 };
 
-export default withRouter(withUser(App));
+export default withRouter(App);

@@ -9,7 +9,7 @@ import ApolloClient from 'apollo-client';
 import withUser from '../../ui/hocs/withUser';
 
 import App from '../../ui/app';
-import Home from '../../ui/pages/index';
+import Home from '../../ui/pages/home';
 import Upload from '../../ui/pages/upload';
 import Sketchbook from '../../ui/pages/sketchbook';
 import SignIn from '../../ui/pages/signin';
@@ -36,7 +36,7 @@ function requireAuth(nextState, replace) {
 export default () => (
   <ApolloProvider client={ client } store={ store }>
     <Router history={ browserHistory }>
-      <Route path="/" component={ App }>
+      <Route path="/" component={ withUser(App) }>
         <IndexRoute component={ Home } />
         <Route
           path="/upload"

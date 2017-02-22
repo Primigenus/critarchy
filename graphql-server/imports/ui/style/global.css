@@ -1,0 +1,80 @@
+:root {
+  --primary: #ffd100;
+  --secondary: #900;
+  --textColor: #000;
+  --textHoverColor: #09c;
+  --invertedTextColor: #fff;
+  --greyLight: #f0f0f0;
+  --greyDark: #ddd;
+  --shadowColor: rgba(0,0,0,.2);
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0 0 4rem 0;
+  line-height: 1.5rem;
+}
+
+.main-header {
+  background-color: var(--primary);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: solid 2px var(--shadowColor);
+}
+
+.main-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary);
+}
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.main-nav li {
+  display: inline-block;
+  flex: 1;
+}
+.main-nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  border: solid 1px white;
+  border-top: none;
+  color: var(--textColor);
+}
+.main-nav a.active {
+  font-weight: bold;
+  background-color: white;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+}
+
+.logo a {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -1px;
+  text-decoration: none;
+  color: var(--textColor);
+}
+
+footer {
+  background-color: var(--primary);
+  padding: 1rem;
+  margin-top: 1rem;
+}
