@@ -1,24 +1,26 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Link } from 'react-router';
+import { IndexLink, Link } from 'react-router';
 import UserPicture from './UserPicture';
 
 const Header = ({ hasUser, user }) => (
   <header className="main-header">
-    <Link to="/" className="logo">Critarchy</Link>
+    <div className="logo"><Link to="/">Critarchy</Link></div>
     <nav className="main-nav">
       { hasUser ?
         <ul>
-          <li><Link to="/upload" className="upload-art">Upload art</Link></li>
-          <li><Link to="/sketchbook">Sketchbook</Link></li>
-          <li><Link to="/profile">
-            { user.name }
+          <li><IndexLink to="/" activeClassName="active">Latest</IndexLink></li>
+          <li><Link to="/upload" className="upload-art" activeClassName="active">Upload</Link></li>
+          <li><Link to="/sketchbook" activeClassName="active">Sketchbook</Link></li>
+          <li><Link to="/profile" activeClassName="active">
             <UserPicture picture={ user.picture } />
+            <br />
+            { user.name }
           </Link></li>
         </ul>
         :
         <ul>
-          <li><Link to="/signin">Sign in</Link></li>
+          <li><Link to="/signin" activeClassName="active">Sign in</Link></li>
         </ul>
       }
     </nav>
