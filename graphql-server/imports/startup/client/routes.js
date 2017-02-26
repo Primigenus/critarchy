@@ -1,28 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { meteorClientConfig } from 'meteor/apollo';
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-client';
 
 import withUser from '../../ui/hocs/withUser';
-
-import App from '../../ui/app';
-import Home from '../../ui/pages/home';
-import Upload from '../../ui/pages/upload';
-import Sketchbook from '../../ui/pages/sketchbook';
-import SignIn from '../../ui/pages/signin';
-import Profile from '../../ui/pages/profile';
-
-const client = new ApolloClient(meteorClientConfig());
-
-const store = createStore(
-  combineReducers({
-    apollo: client.reducer(),
-  }),
-  applyMiddleware(client.middleware()),
-);
+import { client, store } from './apollo';
 
 function requireAuth(nextState, replace) {
   if(!Meteor.userId()) {
@@ -33,28 +15,59 @@ function requireAuth(nextState, replace) {
   }
 }
 
+const errorLoading = err => console.error('Dynamic page loading failed', err);
+
 export default () => (
   <ApolloProvider client={ client } store={ store }>
     <Router history={ browserHistory }>
-      <Route path="/" component={ withUser(App) }>
-        <IndexRoute component={ Home } />
+      <Route
+        path="/"
+        getComponent={ (location, cb) => {
+          import('../../ui/app')
+            .then(module => cb(null, withUser(module.default)))
+            .catch(errorLoading);
+        } }
+      >
+        <IndexRoute
+          getComponent={ (location, cb) => {
+            import('../../ui/pages/home')
+              .then(module => cb(null, withUser(module.default)))
+              .catch(errorLoading);
+          } }
+        />
         <Route
           path="/upload"
-          component={ withUser(Upload) }
+          getComponent={ (location, cb) => {
+            import('../../ui/pages/upload')
+              .then(module => cb(null, withUser(module.default)))
+              .catch(errorLoading);
+          } }
           onEnter={ requireAuth }
         />
         <Route
           path="/sketchbook"
-          component={ withUser(Sketchbook) }
+          getComponent={ (location, cb) => {
+            import('../../ui/pages/sketchbook')
+              .then(module => cb(null, withUser(module.default)))
+              .catch(errorLoading);
+          } }
           onEnter={ requireAuth }
         />
         <Route
           path="/signin"
-          component={ withUser(SignIn) }
+          getComponent={ (location, cb) => {
+            import('../../ui/pages/signin')
+              .then(module => cb(null, withUser(module.default)))
+              .catch(errorLoading);
+          } }
         />
         <Route
           path="/profile"
-          component={ withUser(Profile) }
+          getComponent={ (location, cb) => {
+            import('../../ui/pages/profile')
+              .then(module => cb(null, withUser(module.default)))
+              .catch(errorLoading);
+          } }
           onEnter={ requireAuth }
         />
       </Route>
