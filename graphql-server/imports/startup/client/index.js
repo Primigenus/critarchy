@@ -1,9 +1,9 @@
 import './react-axe';
 import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
-import renderRoutes from './routes';
 
-Meteor.startup(() => {
+Meteor.startup(async () => {
+  const { default: renderRoutes } = await import('./routes');
+  const { render } = await import('react-dom');
   render(renderRoutes(), document.getElementById('react-root'));
   Meteor.subscribe('userDetails');
 });
