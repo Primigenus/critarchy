@@ -1,5 +1,11 @@
 
 export default [`
+  input File {
+    name: String!
+    type: String!
+    size: Int!
+    path: String!
+  }
   scalar UploadedFile
 
   type Query {
@@ -70,7 +76,7 @@ export default [`
   }
 
   type Mutation {
-    uploadImage(files: [UploadedFile!]!): [[Image]]
+    uploadImage(files: [File!]!): [[Image]]
   }
 
   schema {

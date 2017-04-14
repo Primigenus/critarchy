@@ -5,7 +5,7 @@ import uploadClient from '../../data/uploadWithApollo';
 import UploadForm from '../components/UploadForm';
 
 const UPLOAD_IMAGE = gql`
-  mutation uploadImage($files: [UploadedFile!]!) {
+  mutation uploadImage($files: [File!]!) {
     uploadImage(files: $files) {
       publicUrl
     }

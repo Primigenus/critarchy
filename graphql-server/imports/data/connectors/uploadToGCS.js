@@ -1,19 +1,21 @@
 import path from 'path';
 import Storage from '@google-cloud/storage';
 import sharp from 'sharp';
+import fs from 'fs';
 
 const THUMB_SIZES = [600, 320];
 
 const uploadImageWithSize = ({ bucket, file, size }) => new Promise((resolve, reject) => {
-  const info = path.parse(file.originalname);
+  const info = path.parse(file.name);
   // TODO: place in some kind of folder structure (based on user?)
   const newExt = size === 'orig' ? info.ext : '.jpg';
   const filename = `${Date.now()}_${info.name}_${size}${newExt}`;
   const blob = bucket.file(filename);
-  let buffer = new Promise(res => res(file.buffer));
+  const fileData = fs.readFileSync(file.path);
+  let buffer = new Promise(res => res(fileData));
 
   if(size !== 'orig') {
-    buffer = sharp(file.buffer)
+    buffer = sharp(fileData)
       .withoutEnlargement()
       .resize(size)
       .crop(sharp.strategy.attention)
