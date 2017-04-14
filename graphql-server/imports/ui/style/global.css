@@ -1,4 +1,4 @@
-:root {
+/*:root {
   --primary: #ffd100;
   --secondary: #900;
   --textColor: #000;
@@ -13,7 +13,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0 0 4rem 0;
   line-height: 1.5rem;
-}
+}*/
 
 .main-header {
   background-color: var(--primary);
