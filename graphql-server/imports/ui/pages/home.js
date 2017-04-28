@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import CritThumbnailList from '../components/CritThumbnailList';
@@ -42,9 +43,9 @@ class Home extends React.Component {
     },
   };
   static propTypes = {
-    data: React.PropTypes.shape({
-      loading: React.PropTypes.bool,
-      newestCrits: React.PropTypes.array,
+    data: PropTypes.shape({
+      loading: PropTypes.bool,
+      newestCrits: PropTypes.array,
     }),
   };
   render() {

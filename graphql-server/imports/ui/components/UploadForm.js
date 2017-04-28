@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class UploadForm extends React.Component {
   static formatFileSize(size) {
@@ -127,4 +128,4 @@ export default class UploadForm extends React.Component {
   }
 }
 
-UploadForm.propTypes = { onSubmit: React.PropTypes.func.isRequired };
+UploadForm.propTypes = { onSubmit: PropTypes.func.isRequired };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { IndexLink, Link } from 'react-router';
 
 const SignedInNav = () => (
@@ -29,6 +30,6 @@ const Header = ({ hasUser }) => (
   </header>
 );
 
-Header.propTypes = { hasUser: React.PropTypes.bool.isRequired };
+Header.propTypes = { hasUser: PropTypes.bool.isRequired };
 
 export default Header;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
 const UserPicture = ({ picture, size = 'normal' }) => (
@@ -16,8 +17,8 @@ const UserPicture = ({ picture, size = 'normal' }) => (
 );
 
 UserPicture.propTypes = {
-  picture: React.PropTypes.string.isRequired,
-  size: React.PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
 };
 
 export default UserPicture;

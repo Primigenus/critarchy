@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 
 export default class Profile extends React.Component {
   static propTypes = {
-    hasUser: React.PropTypes.bool,
-    user: React.PropTypes.object,
+    hasUser: PropTypes.bool,
+    user: PropTypes.object,
   };
   logout() {
     Meteor.logout();

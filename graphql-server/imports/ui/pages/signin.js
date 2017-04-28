@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { locationShape, browserHistory } from 'react-router';
 
 export default class SignIn extends React.Component {
   static propTypes = {
-    hasUser: React.PropTypes.bool,
+    hasUser: PropTypes.bool,
     location: locationShape,
   };
   constructor(props) {

@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import Head from 'next/head';
 
 const HtmlHead = ({ title }) => (
   <Head>
     <meta charSet="utf-8" />
-    <title>{ title ? `${title} - ` : '' }Critarchy</title>
+    <title>{title ? `${title} - ` : ''}Critarchy</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
     <meta name="description" value="" />
     <meta name="theme-color" content="#fff" />
@@ -17,7 +18,7 @@ const HtmlHead = ({ title }) => (
 );
 
 HtmlHead.propTypes = {
-  title: React.PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default HtmlHead;

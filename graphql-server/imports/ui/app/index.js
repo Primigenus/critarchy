@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import Header from '../components/Header';
 
@@ -17,6 +18,6 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = { children: React.PropTypes.element };
+App.propTypes = { children: PropTypes.element };
 
 export default withRouter(App);

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ThumbsUpIcon from '../components/icons/ThumbsUpIcon';
 import Art from '../components/Art';
 
@@ -32,13 +33,13 @@ export default class CritThumbnail extends Component {
     }),
     // Whether this crit should be initially rendered as expanded
     expanded: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
     // Critiques are expanded by default, but can be minimized by the user or
     // rendered minimized by its parent component if desired.
     expanded: true,
-  }
+  };
 
   render() {
     return (
@@ -47,21 +48,18 @@ export default class CritThumbnail extends Component {
         <div>
           <div>
             <ThumbsUpIcon
-              id={ this.props.crit.id }
+              id={this.props.crit.id}
               /* TODO(diedra): Determine isLiked by checking if the current
                * user is in the critique's likedBy list.
                */
-              isLiked={ false }
+              isLiked={false}
             />
           </div>
-          <Art
-            image={ this.props.crit.art.image }
-            alt={ this.props.crit.art.title }
-            size="large"
-          />
+          <Art image={this.props.crit.art.image} alt={this.props.crit.art.title} size="large" />
           <br />
-          by <img src={ this.props.crit.art.createdBy.picture } alt="" width="40" height="40" />
-          { this.props.crit.art.createdBy.name }
+          by{' '}
+          <img src={this.props.crit.art.createdBy.picture} alt="" width="40" height="40" />
+          {this.props.crit.art.createdBy.name}
         </div>
       </div>
     );
