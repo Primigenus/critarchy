@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => (
   <footer>
-    <span>&copy; Critarchy Authors, 2017</span>
+    <span>© Critarchy Authors, 2017</span>
   </footer>
 );
 

@@ -12,9 +12,9 @@ const uploadImageWithSize = ({ bucket, file, size }) => new Promise((resolve, re
   const filename = `${Date.now()}_${info.name}_${size}${newExt}`;
   const blob = bucket.file(filename);
   const fileData = fs.readFileSync(file.path);
-  let buffer = new Promise(res => res(fileData));
+  let buffer = new Promise(resolve => resolve(fileData));
 
-  if(size !== 'orig') {
+  if (size !== 'orig') {
     buffer = sharp(fileData)
       .withoutEnlargement()
       .resize(size)
@@ -30,12 +30,10 @@ const uploadImageWithSize = ({ bucket, file, size }) => new Promise((resolve, re
     resumable: false,
     public: true,
     gzip: true,
-    metadata: {
-      contentType: 'image/jpeg',
-    },
+    metadata: { contentType: 'image/jpeg' },
   });
 
-  blobStream.on('error', (err) => {
+  blobStream.on('error', err => {
     reject(`Error handling upload to GCS: ${err}`);
   });
 
@@ -49,26 +47,22 @@ const uploadImageWithSize = ({ bucket, file, size }) => new Promise((resolve, re
 
   buffer.then(
     buff => blobStream.end(buff),
-    err => reject(`Error sending image from sharp to GCS: ${err}`),
+    err => reject(`Error sending image from sharp to GCS: ${err}`)
   );
 });
 
 const uploadImage = ({ bucket, file }) => {
-  const promises = ['orig'].concat(THUMB_SIZES).map(size => uploadImageWithSize({
-    bucket,
-    file,
-    size,
-  }));
+  const promises = ['orig']
+    .concat(THUMB_SIZES)
+    .map(size => uploadImageWithSize({ bucket, file, size }));
   return Promise.all(promises);
 };
 
 const uploadImages = ({ bucket, files }) => {
-  if(files.length > 5) {
+  if (files.length > 5) {
     throw new Error('Too many files queued for upload.');
   }
-  return Promise.all(files.map(
-    async file => await uploadImage({ bucket, file }),
-  ));
+  return Promise.all(files.map(async file => await uploadImage({ bucket, file })));
 };
 
 export default async (files, settings) => {

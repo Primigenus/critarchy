@@ -5,12 +5,12 @@ const UserPicture = ({ picture, size = 'normal' }) => (
   <div className="user-picture">
     <img
       className="user-picture-img"
-      src={ picture }
+      src={picture}
       alt=""
-      style={ {
+      style={{
         width: size === 'large' ? 40 : 20,
         height: size === 'large' ? 40 : 20,
-      } }
+      }}
     />
   </div>
 );

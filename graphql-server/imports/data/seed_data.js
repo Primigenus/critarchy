@@ -1,13 +1,13 @@
-import { Meteor } from 'meteor/meteor'; // eslint-disable-line
+import { Meteor } from 'meteor/meteor';
 import * as Collections from './collections';
 
-if(Meteor.isDevelopment) {
+if (Meteor.isDevelopment) {
   Meteor.startup(() => {
     Collections.Crits.remove({});
     Collections.Art.remove({});
 
     const user = Collections.Users.findOne();
-    if(!user) return;
+    if (!user) return;
     const userId = user._id;
 
     const artId = Collections.Art.insert({

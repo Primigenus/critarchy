@@ -3,8 +3,10 @@ import React from 'react';
 export default class UploadForm extends React.Component {
   static formatFileSize(size) {
     // http://stackoverflow.com/a/20463021/16308
-    // eslint-disable-next-line
-    const fn = (a,b,c,d,e) => (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'B':'Bytes');
+    const fn = (a, b, c, d, e) =>
+      (b = Math, c = b.log, d = 1e3, e = c(a) / c(d) | 0, a / b.pow(d, e)).toFixed(2) +
+      ' ' +
+      (e ? 'kMGTPEZY'[--e] + 'B' : 'Bytes');
     return fn(size);
   }
   constructor(props) {
@@ -26,10 +28,10 @@ export default class UploadForm extends React.Component {
     const tooManyFiles = arrayFiles.length > 5;
     let uploadError = null;
 
-    if(fileTooBig) {
+    if (fileTooBig) {
       uploadError = 'Please only select images smaller than 5MB.';
     }
-    if(tooManyFiles) {
+    if (tooManyFiles) {
       uploadError = 'Please upload at most 5 files.';
     }
 
@@ -41,9 +43,7 @@ export default class UploadForm extends React.Component {
   }
   async handleSubmit(evt) {
     evt.preventDefault();
-    this.setState({
-      uploading: true,
-    });
+    this.setState({ uploading: true });
     let result;
     try {
       result = await this.props.onSubmit(this.files);
@@ -63,26 +63,14 @@ export default class UploadForm extends React.Component {
   }
   render() {
     return (
-      <form
-        method="post"
-        onSubmit={ evt => this.handleSubmit(evt) }
-        encType="multipart/form-data"
-      >
-
+      <form method="post" onSubmit={evt => this.handleSubmit(evt)} encType="multipart/form-data">
         <p>
           <label htmlFor="file">File(s) to upload</label>
-          <input
-            type="file"
-            id="file"
-            multiple
-            onChange={ evt => this.changeFiles(evt) }
-          />
+          <input type="file" id="file" multiple onChange={evt => this.changeFiles(evt)} />
         </p>
-
-        { this.renderUploadingMessage() }
-        { this.renderUploadError() }
-        { this.renderUploadingImages() }
-
+        {this.renderUploadingMessage()}
+        {this.renderUploadError()}
+        {this.renderUploadingImages()}
         <p>
           <input
             type="submit"
@@ -92,9 +80,7 @@ export default class UploadForm extends React.Component {
             }
           />
         </p>
-
-        { this.renderUploadedImages() }
-
+        {this.renderUploadedImages()}
       </form>
     );
   }
@@ -102,29 +88,25 @@ export default class UploadForm extends React.Component {
     return this.state.uploading ? <div className="loading">Uploading...</div> : <span />;
   }
   renderUploadError() {
-    if(this.state.uploadError) {
-      return <p>{ this.state.uploadError }</p>;
+    if (this.state.uploadError) {
+      return <p>{this.state.uploadError}</p>;
     }
     return null;
   }
   renderUploadingImages() {
     const { uploadingImages } = this.state;
-    if(uploadingImages) {
+    if (uploadingImages) {
       return (
         <div>
           You selected:
           <ul>
-            { uploadingImages.map((file, i) => <li key={ i }>
-              <img
-                src={ window.URL.createObjectURL(file) }
-                alt=""
-                style={ { height: 30 } }
-              />
-
-              { file.name } ({ UploadForm.formatFileSize(file.size) })
-
-              { i + 1 < uploadingImages.length ? ', ' : '' }
-            </li>) }
+            {uploadingImages.map((file, i) => (
+              <li key={i}>
+                <img src={window.URL.createObjectURL(file)} alt="" style={{ height: 30 }} />
+                {file.name} ({UploadForm.formatFileSize(file.size)})
+                {i + 1 < uploadingImages.length ? ', ' : ''}
+              </li>
+            ))}
           </ul>
         </div>
       );
@@ -133,16 +115,16 @@ export default class UploadForm extends React.Component {
   }
   renderUploadedImages() {
     const { uploadedImages } = this.state;
-    if(uploadedImages) {
-      return uploadedImages.map((url, i) => <p key={ i }>
-        You uploaded this image!<br />
-        <img src={ url } alt="" style={ { height: 300 } } />
-      </p>);
+    if (uploadedImages) {
+      return uploadedImages.map((url, i) => (
+        <p key={i}>
+          You uploaded this image!<br />
+          <img src={url} alt="" style={{ height: 300 }} />
+        </p>
+      ));
     }
     return null;
   }
 }
 
-UploadForm.propTypes = {
-  onSubmit: React.PropTypes.func.isRequired,
-};
+UploadForm.propTypes = { onSubmit: React.PropTypes.func.isRequired };

@@ -8,17 +8,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header { ...this.props } { ...this.state } />
+        <Header {...this.props} {...this.state} />
         <main>
-          { this.props.children }
+          {this.props.children}
         </main>
       </div>
     );
   }
 }
 
-App.propTypes = {
-  children: React.PropTypes.element,
-};
+App.propTypes = { children: React.PropTypes.element };
 
 export default withRouter(App);

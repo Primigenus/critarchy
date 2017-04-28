@@ -1,4 +1,4 @@
-import { Mongo } from 'meteor/mongo'; // eslint-disable-line
+import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 const Crits = new Mongo.Collection('crits');

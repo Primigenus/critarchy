@@ -1,8 +1,6 @@
-import { Meteor } from 'meteor/meteor'; // eslint-disable-line
-import { WebApp } from 'meteor/webapp'; // eslint-disable-line
-import { Accounts } from 'meteor/accounts-base'; // eslint-disable-line
-import { _ } from 'meteor/underscore'; // eslint-disable-line
-import { createApolloServer } from 'meteor/apollo'; // eslint-disable-line
+import { Meteor } from 'meteor/meteor';
+import { WebApp } from 'meteor/webapp';
+import { createApolloServer } from 'meteor/apollo';
 
 import { apolloUploadExpress } from '../imports/data/apollo-upload-server';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
@@ -25,10 +23,7 @@ import '../imports/data/seed_data';
 
 WebApp.addHtmlAttributeHook(() => ({ lang: 'en' }));
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const connectors = {
   uploadToGCS,
@@ -43,25 +38,21 @@ const connectors = {
 //   schema,
 //   // preserveResolvers: true,
 // });
-
-createApolloServer({
-  schema,
-  context: {
-    settings: Meteor.settings.private,
-    connectors,
+createApolloServer(
+  {
+    schema,
+    context: { settings: Meteor.settings.private, connectors },
+    formatError(error) {
+      if (Meteor.isDevelopment) {
+        console.error(error.stack);
+      }
+      return error;
+    },
+    debug: Meteor.isDevelopment,
   },
-  formatError(error) {
-    if(Meteor.isDevelopment) {
-      console.error(error.stack);
-    }
-    return error;
-  },
-  debug: Meteor.isDevelopment,
-}, {
-  configServer: (expressServer) => {
-    expressServer.use(
-      bodyParser.json(),
-      apolloUploadExpress(),
-    );
-  },
-});
+  {
+    configServer: expressServer => {
+      expressServer.use(bodyParser.json(), apolloUploadExpress());
+    },
+  }
+);

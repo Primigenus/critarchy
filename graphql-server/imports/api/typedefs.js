@@ -1,12 +1,11 @@
-
-export default [`
+export default [
+  `
   input File {
     name: String!
     type: String!
     size: Int!
     path: String!
   }
-  scalar UploadedFile
 
   type Query {
     newestCrits(limit: Int): [Crit]
@@ -83,4 +82,5 @@ export default [`
     query: Query
     mutation: Mutation
   }
-`];
+`,
+];

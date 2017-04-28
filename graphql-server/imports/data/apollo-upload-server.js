@@ -1,28 +1,28 @@
 // copied from https://github.com/jaydenseric/apollo-upload-server
 
-import mkdirp from 'mkdirp'
-import formidable from 'formidable'
-import objectPath from 'object-path'
+import mkdirp from 'mkdirp';
+import formidable from 'formidable';
+import objectPath from 'object-path';
 
-export function processRequest (request, {uploadDir} = {}) {
+export function processRequest(request, { uploadDir } = {}) {
   // Ensure provided upload directory exists
-  if (uploadDir) mkdirp.sync(uploadDir)
+  if (uploadDir) mkdirp.sync(uploadDir);
 
   const form = formidable.IncomingForm({
     // Defaults to the OS temp directory
-    uploadDir
-  })
+    uploadDir,
+  });
 
-  form.maxFieldsSize = 5 * 1024 * 1024 // 5MB
+  form.maxFieldsSize = 5 * 1024 * 1024; // 5MB
 
   // Parse the multipart form request
   return new Promise((resolve, reject) => {
-    form.parse(request, (error, {operations}, files) => {
-      if (error) reject(new Error(error))
+    form.parse(request, (error, { operations }, files) => {
+      if (error) reject(new Error(error));
 
       // Decode the GraphQL operation(s). This is an array
       // if batching is enabled.
-      operations = JSON.parse(operations)
+      operations = JSON.parse(operations);
 
       // Check if files were uploaded
       if (Object.keys(files).length) {
@@ -30,26 +30,26 @@ export function processRequest (request, {uploadDir} = {}) {
         // the File object in the GraphQL operation input
         // variables. Relevent data for each uploaded file
         // now gets placed back in the variables.
-        const operationsPath = objectPath(operations)
+        const operationsPath = objectPath(operations);
         Object.keys(files).forEach(variablesPath => {
-          const {name, type, size, path} = files[variablesPath]
-          operationsPath.set(variablesPath, {name, type, size, path})
-        })
+          const { name, type, size, path } = files[variablesPath];
+          operationsPath.set(variablesPath, { name, type, size, path });
+        });
       }
 
       // Provide fields for replacement request body
-      resolve(operations)
-    })
-  })
+      resolve(operations);
+    });
+  });
 }
 
-export function apolloUploadExpress (options) {
+export function apolloUploadExpress(options) {
   return (request, response, next) => {
     // Skip if there are no uploads
-    if (!request.is('multipart/form-data')) return next()
+    if (!request.is('multipart/form-data')) return next();
     processRequest(request, options).then(body => {
-      request.body = body
-      next()
-    })
-  }
+      request.body = body;
+      next();
+    });
+  };
 }
