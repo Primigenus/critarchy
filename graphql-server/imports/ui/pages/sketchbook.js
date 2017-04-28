@@ -26,29 +26,31 @@ class Sketchbook extends React.Component {
       loading: React.PropTypes.bool,
       sketchbook: React.PropTypes.array,
     }),
-  }
+  };
 
   render() {
     const { user, data: { loading } } = this.props;
-    return loading ? <div>Loading...</div> : (
-      <div>
-        <h1>{ user.name }&apos;s sketchbook</h1>
-        { this.renderArt() }
-      </div>
-    );
+    return loading
+      ? <div>Loading...</div>
+      : <div>
+          <h1>{user.name}'s sketchbook</h1>
+          {this.renderArt()}
+        </div>;
   }
 
   renderArt() {
     const { sketchbook } = this.props.data;
     return (
       <ul>
-        { sketchbook.map((art, i) => (
-          <li key={ i }>
-            <h2>{ art.title }</h2>
-            <img src={ art.image.thumb_small } alt="" />
-            <p>Posted <TimeAgo date={ art.createdOn } /> - { art.numCrits } crits</p>
+        {sketchbook.map((art, i) => (
+          <li key={i}>
+            <h2>{art.title}</h2>
+            <img src={art.image.thumb_small} alt="" />
+            <p>
+              Posted <TimeAgo date={art.createdOn} /> - {art.numCrits} crits
+            </p>
           </li>
-        )) }
+        ))}
       </ul>
     );
   }

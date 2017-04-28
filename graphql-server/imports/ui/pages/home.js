@@ -40,21 +40,18 @@ class Home extends React.Component {
       leastCrittedArt: [],
       mostThankedCrits: [],
     },
-  }
+  };
   static propTypes = {
     data: React.PropTypes.shape({
       loading: React.PropTypes.bool,
       newestCrits: React.PropTypes.array,
     }),
-  }
+  };
   render() {
     return (
       <div>
         <HomeBanner />
-        <CritThumbnailList
-          crits={ this.props.data.newestCrits }
-          critsAreExpanded={ false }
-        />
+        <CritThumbnailList crits={this.props.data.newestCrits} critsAreExpanded={false} />
       </div>
     );
   }

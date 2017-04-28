@@ -22,7 +22,7 @@ class UploadImage extends React.Component {
   render() {
     return (
       <div>
-        <UploadForm onSubmit={ UploadImage.handleFormSubmit } />
+        <UploadForm onSubmit={UploadImage.handleFormSubmit} />
       </div>
     );
   }

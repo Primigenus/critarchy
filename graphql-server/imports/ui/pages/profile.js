@@ -6,7 +6,7 @@ export default class Profile extends React.Component {
   static propTypes = {
     hasUser: React.PropTypes.bool,
     user: React.PropTypes.object,
-  }
+  };
   logout() {
     Meteor.logout();
     browserHistory.push('/');
@@ -15,23 +15,23 @@ export default class Profile extends React.Component {
     return (
       <div>
         <h1>Profile</h1>
-        { this.renderSignedInFacebook() }
-        { this.renderSignedInGoogle() }
-        <p><button onClick={ this.logout }>Sign out</button></p>
+        {this.renderSignedInFacebook()}
+        {this.renderSignedInGoogle()}
+        <p><button onClick={this.logout}>Sign out</button></p>
       </div>
     );
   }
   renderSignedInFacebook() {
     const { hasUser, user } = this.props;
-    if(hasUser && user.services && user.services.facebook) {
-      return <p>You&apos;ve connected your Facebook account.</p>;
+    if (hasUser && user.services && user.services.facebook) {
+      return <p>You've connected your Facebook account.</p>;
     }
     return null;
   }
   renderSignedInGoogle() {
     const { hasUser, user } = this.props;
-    if(hasUser && user.services && user.services.google) {
-      return <p>You&apos;ve connected your Google account.</p>;
+    if (hasUser && user.services && user.services.google) {
+      return <p>You've connected your Google account.</p>;
     }
     return null;
   }

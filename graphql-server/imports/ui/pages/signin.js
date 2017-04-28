@@ -6,7 +6,7 @@ export default class SignIn extends React.Component {
   static propTypes = {
     hasUser: React.PropTypes.bool,
     location: locationShape,
-  }
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -30,12 +30,17 @@ export default class SignIn extends React.Component {
     return (
       <div>
         <h1>Sign in</h1>
-        { redirect && <p>Please sign in to continue.</p> }
+        {redirect && <p>Please sign in to continue.</p>}
         <div>
-          { !this.props.hasUser && <div>
-            <button onClick={ e => this.onClickGoogle(e) }>Sign in with Google</button>
-            <button onClick={ e => this.onClickFacebook(e) }>Sign in with Facebook</button>
-          </div> }
+          {!this.props.hasUser &&
+            <div>
+              <button onClick={e => this.onClickGoogle(e)}>
+                Sign in with Google
+              </button>
+              <button onClick={e => this.onClickFacebook(e)}>
+                Sign in with Facebook
+              </button>
+            </div>}
         </div>
       </div>
     );
