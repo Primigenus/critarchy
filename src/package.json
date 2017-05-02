@@ -1,5 +1,5 @@
 {
-  "name": "graphql-server",
+  "name": "critarchy",
   "private": true,
   "scripts": {
     "lint": "eslint --quiet --ext .js .",
@@ -8,7 +8,7 @@
     "start": "meteor run"
   },
   "lint-staged": {
-    "*.js": [
+    "src/**/*.js": [
       "prettier --write",
       "git add"
     ]
