@@ -17,6 +17,6 @@ export default WrappedComponent => class withUser extends Tracker.Component {
     });
   }
   render() {
-    return <WrappedComponent { ...this.props } { ...this.state } />;
+    return <WrappedComponent {...this.props} {...this.state} />;
   }
 };
