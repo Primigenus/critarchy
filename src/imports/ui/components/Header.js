@@ -1,29 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IndexLink, Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 const SignedInNav = () => (
   <ul>
-    <li><IndexLink to="/" activeClassName="active">Latest</IndexLink></li>
+    <li><NavLink exact to="/" activeClassName="active">Latest</NavLink></li>
     <li>
-      <Link to="/upload" className="upload-art" activeClassName="active">
+      <NavLink to="/upload" className="upload-art" activeClassName="active">
         Upload
-      </Link>
+      </NavLink>
     </li>
-    <li><Link to="/sketchbook" activeClassName="active">Sketchbook</Link></li>
-    <li><Link to="/profile" activeClassName="active">Profile</Link></li>
+    <li><NavLink to="/sketchbook" activeClassName="active">Sketchbook</NavLink></li>
+    <li><NavLink to="/profile" activeClassName="active">Profile</NavLink></li>
   </ul>
 );
 
 const SignedOutNav = () => (
   <ul>
-    <li><Link to="/signin" activeClassName="active">Sign in</Link></li>
+    <li><NavLink to="/signin" activeClassName="active">Sign in</NavLink></li>
   </ul>
 );
 
 const Header = ({ hasUser }) => (
   <header className="main-header">
-    <div className="logo"><Link to="/">Critarchy</Link></div>
+    <div className="logo"><NavLink to="/">Critarchy</NavLink></div>
     <nav className="main-nav">
       {hasUser ? <SignedInNav /> : <SignedOutNav />}
     </nav>

@@ -1,12 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { locationShape, browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
-export default class SignIn extends React.Component {
+class SignIn extends React.Component {
   static propTypes = {
     hasUser: PropTypes.bool,
-    location: locationShape,
+  };
+  state = {
+    redirect: false,
   };
   constructor(props) {
     super(props);
@@ -17,21 +19,24 @@ export default class SignIn extends React.Component {
   onClickGoogle(evt) {
     evt.preventDefault();
     Meteor.loginWithGoogle(() => {
-      browserHistory.push(this.state.redirect || '/');
+      this.setState({ redirect: true });
     });
   }
   onClickFacebook(evt) {
     evt.preventDefault();
     Meteor.loginWithFacebook(() => {
-      browserHistory.push(this.state.redirect || '/');
+      this.setState({ redirect: true });
     });
   }
   render() {
+    const { from } = this.props.location.state;
     const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to={from} />;
+    }
     return (
       <div>
         <h1>Sign in</h1>
-        {redirect && <p>Please sign in to continue.</p>}
         <div>
           {!this.props.hasUser &&
             <div>
@@ -47,3 +52,5 @@ export default class SignIn extends React.Component {
     );
   }
 }
+
+export default withRouter(SignIn);

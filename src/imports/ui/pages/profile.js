@@ -1,16 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
   static propTypes = {
     hasUser: PropTypes.bool,
     user: PropTypes.object,
   };
   logout() {
     Meteor.logout();
-    browserHistory.push('/');
+    this.props.history.push('/');
   }
   render() {
     return (
@@ -37,3 +37,5 @@ export default class Profile extends React.Component {
     return null;
   }
 }
+
+export default withRouter(Profile);
