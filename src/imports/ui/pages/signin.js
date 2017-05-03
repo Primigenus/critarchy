@@ -4,31 +4,25 @@ import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
 class SignIn extends React.Component {
-  static propTypes = {
-    hasUser: PropTypes.bool,
+  props: {
+    hasUser: boolean,
   };
   state = {
     redirect: false,
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      redirect: props.location.state && props.location.state.redirect.pathname,
-    };
-  }
-  onClickGoogle(evt) {
+  onClickGoogle(evt: Event) {
     evt.preventDefault();
     Meteor.loginWithGoogle(() => {
       this.setState({ redirect: true });
     });
   }
-  onClickFacebook(evt) {
+  onClickFacebook(evt: Event) {
     evt.preventDefault();
     Meteor.loginWithFacebook(() => {
       this.setState({ redirect: true });
     });
   }
-  render() {
+  render(): Redirect | HTMLDivElement {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     const { redirect } = this.state;
     if (redirect) {

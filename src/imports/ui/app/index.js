@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 
 import withUser from '../../ui/hocs/withUser';
@@ -10,19 +9,24 @@ import { Home, Upload, SignIn, Sketchbook, Profile } from '../../startup/client/
 
 import '../style/global.css';
 
-function requireAuth(nextState, replace) {
-  if (!Meteor.userId()) {
-    replace({
-      pathname: '/signin',
-      state: { redirect: nextState.location },
-    });
-  }
-}
+const PrivateRoute = ({ component: Component, ...rest }): Route => (
+  <Route
+    {...rest}
+    render={props =>
+      Meteor.userId()
+        ? <Component {...props} />
+        : <Redirect
+            to={{
+              pathname: '/signin',
+              state: { from: props.location },
+            }}
+          />}
+  />
+);
 
 const HeaderWithUser = withUser(Header);
 
 class App extends React.Component {
-  static propTypes = { children: PropTypes.element };
   render() {
     return (
       <ApolloProvider client={client} store={store}>
@@ -31,10 +35,10 @@ class App extends React.Component {
             <HeaderWithUser {...this.props} {...this.state} />
             <main>
               <Route exact path="/" component={withUser(Home)} />
-              <Route path="/upload" component={withUser(Upload)} />
               <Route path="/signin" component={withUser(SignIn)} />
-              <Route path="/sketchbook" component={withUser(Sketchbook)} />
-              <Route path="/profile" component={withUser(Profile)} />
+              <PrivateRoute path="/upload" component={withUser(Upload)} />
+              <PrivateRoute path="/sketchbook" component={withUser(Sketchbook)} />
+              <PrivateRoute path="/profile" component={withUser(Profile)} />
             </main>
           </div>
         </Router>
