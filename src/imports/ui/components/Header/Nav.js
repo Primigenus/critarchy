@@ -64,8 +64,7 @@ const Nav = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
         align-items: center;
         padding: 1rem;
         text-decoration: none;
-        border: solid 1px white;
-        border-top: none;
+        border: solid 1px var(--greyDark);
         color: var(--textColor);
       }
       li :global(.active) {
