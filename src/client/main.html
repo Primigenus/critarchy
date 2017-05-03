@@ -18,6 +18,9 @@
       --textColor: #000;
       --textHoverColor: #09c;
       --invertedTextColor: #fff;
+      --linkColor: #06c;
+      --linkHoverColor: var(--textHoverColor);
+      --linkVisitedColor: #039;
       --greyLight: #f0f0f0;
       --greyDark: #ddd;
       --shadowColor: rgba(0,0,0,.2);
@@ -28,6 +31,15 @@
       "Segoe UI Emoji", "Segoe UI Symbol";
       margin: 0 0 4rem 0;
       line-height: 1.5rem;
+    }
+    a:link {
+      color: var(--linkColor);
+    }
+    a:hover {
+      color: var(--linkHoverColor);
+    }
+    a:visited {
+      color: var(--linkVisitedColor);
     }
   </style>
 </head>
