@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 class Profile extends React.Component {
-  static propTypes = {
-    hasUser: PropTypes.bool,
-    user: PropTypes.object,
+  props: {
+    hasUser: boolean,
+    user: object,
   };
   logout = () => {
     Meteor.logout();
     this.props.history.push('/');
   };
-  render() {
+  render(): HTMLDivElement {
     return (
       <div>
         <h1>Profile</h1>
@@ -22,14 +22,14 @@ class Profile extends React.Component {
       </div>
     );
   }
-  renderSignedInFacebook() {
+  renderSignedInFacebook(): ?HTMLParagraphElement {
     const { hasUser, user } = this.props;
     if (hasUser && user.services && user.services.facebook) {
       return <p>You've connected your Facebook account.</p>;
     }
     return null;
   }
-  renderSignedInGoogle() {
+  renderSignedInGoogle(): ?HTMLParagraphElement {
     const { hasUser, user } = this.props;
     if (hasUser && user.services && user.services.google) {
       return <p>You've connected your Google account.</p>;

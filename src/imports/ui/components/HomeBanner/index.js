@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-const HomeBanner = () => (
+const HomeBanner = (): HTMLDivElement => (
   <div role="banner" className="home-banner">
     <h1>A community of critiques</h1>
     <p>Critarchy is an engine for helping artists improve.</p>

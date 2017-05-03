@@ -1,38 +1,37 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ThumbsUpIcon from '../components/icons/ThumbsUpIcon';
 import Art from '../components/Art';
 
-const userShape = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  picture: PropTypes.string,
-});
+type User = {
+  name: string,
+  picture: ?string,
+};
 
 /*
  * Displays a single critique.
  */
 export default class CritThumbnail extends Component {
-  static propTypes = {
+  props: {
     /* TODO(diedra): Split this off into a separate object in a shared propTypes
      * file that can be reused in the propTypes of different components.
      */
-    crit: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      createdOn: PropTypes.number.isRequired,
-      createdBy: userShape,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      art: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        createdBy: userShape,
-        image: PropTypes.shape({
-          thumb_large: PropTypes.string.isRequired,
-        }),
-      }),
-      thankedBy: PropTypes.arrayOf(userShape),
-    }),
+    crit: {
+      id: string,
+      createdOn: number,
+      createdBy: ?User,
+      title: string,
+      content: string,
+      art: {
+        title: string,
+        createdBy: ?User,
+        image: {
+          thumb_large: string,
+        },
+      },
+      thankedBy: Array<User>,
+    },
     // Whether this crit should be initially rendered as expanded
-    expanded: PropTypes.bool,
+    expanded: boolean,
   };
 
   static defaultProps = {
@@ -41,7 +40,7 @@ export default class CritThumbnail extends Component {
     expanded: true,
   };
 
-  render() {
+  render(): HTMLDivElement {
     return (
       <div>
         <div>{this.props.crit.content}</div>

@@ -1,26 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+type Props = { onSubmit: Array<File> => Promise<any> };
 
 export default class UploadForm extends React.Component {
-  static formatFileSize(size) {
+  props: Props;
+  state = {
+    uploadedImages: null,
+    uploadingImages: null,
+    uploading: false,
+    uploadError: null,
+    selectedFiles: false,
+  };
+  static formatFileSize(size: string): number {
     // http://stackoverflow.com/a/20463021/16308
     const fn = (a, b, c, d, e) =>
-      (b = Math, c = b.log, d = 1e3, e = c(a) / c(d) | 0, a / b.pow(d, e)).toFixed(2) +
+      ((b = Math), (c = b.log), (d = 1e3), (e = (c(a) / c(d)) | 0), a / b.pow(d, e)).toFixed(2) +
       ' ' +
       (e ? 'kMGTPEZY'[--e] + 'B' : 'Bytes');
     return fn(size);
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      uploadedImages: null,
-      uploadingImages: null,
-      uploading: false,
-      uploadError: null,
-      selectedFiles: false,
-    };
-  }
-  changeFiles(evt) {
+  changeFiles(evt: Event): void {
     this.files = evt.target.files;
 
     const arrayFiles = Array.from(this.files);
@@ -42,7 +41,7 @@ export default class UploadForm extends React.Component {
       uploadingImages: arrayFiles,
     });
   }
-  async handleSubmit(evt) {
+  async handleSubmit(evt: Event): void {
     evt.preventDefault();
     this.setState({ uploading: true });
     let result;
@@ -62,7 +61,7 @@ export default class UploadForm extends React.Component {
       });
     }
   }
-  render() {
+  render(): HTMLFormElement {
     return (
       <form method="post" onSubmit={evt => this.handleSubmit(evt)} encType="multipart/form-data">
         <p>
@@ -85,16 +84,16 @@ export default class UploadForm extends React.Component {
       </form>
     );
   }
-  renderUploadingMessage() {
+  renderUploadingMessage(): HTMLDivElement | HTMLSpanElement {
     return this.state.uploading ? <div className="loading">Uploading...</div> : <span />;
   }
-  renderUploadError() {
+  renderUploadError(): ?HTMLParagraphElement {
     if (this.state.uploadError) {
       return <p>{this.state.uploadError}</p>;
     }
     return null;
   }
-  renderUploadingImages() {
+  renderUploadingImages(): ?HTMLDivElement {
     const { uploadingImages } = this.state;
     if (uploadingImages) {
       return (
@@ -114,7 +113,7 @@ export default class UploadForm extends React.Component {
     }
     return null;
   }
-  renderUploadedImages() {
+  renderUploadedImages(): ?Array<HTMLParagraphElement> {
     const { uploadedImages } = this.state;
     if (uploadedImages) {
       return uploadedImages.map((url, i) => (
@@ -127,5 +126,3 @@ export default class UploadForm extends React.Component {
     return null;
   }
 }
-
-UploadForm.propTypes = { onSubmit: PropTypes.func.isRequired };

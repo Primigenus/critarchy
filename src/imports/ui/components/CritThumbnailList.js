@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CritThumbnail from './CritThumbnail';
 
 /*
@@ -14,12 +13,12 @@ export default class CritThumbnailList extends Component {
     // rendered minimized by its parent component if desired.
     critsAreExpanded: true,
   };
-  static propTypes = {
-    crits: PropTypes.arrayOf(CritThumbnail.propTypes.crit),
-    critsAreExpanded: PropTypes.bool,
+  props: {
+    crits: Array<CritThumbnail.propTypes.crit>,
+    critsAreExpanded: boolean,
   };
 
-  render() {
+  render(): HTMLDivElement {
     return (
       <div>
         {this.props.crits &&

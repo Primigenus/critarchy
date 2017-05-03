@@ -1,8 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './style.css';
 
-const UserPicture = ({ picture, size = 'normal' }) => (
+type UserPicture = {
+  picture: string,
+  size: ?string,
+};
+
+const UserPicture = ({ picture, size = 'normal' }: UserPicture): HTMLDivElement => (
   <div className="user-picture">
     <img
       className="user-picture-img"
@@ -15,10 +19,5 @@ const UserPicture = ({ picture, size = 'normal' }) => (
     />
   </div>
 );
-
-UserPicture.propTypes = {
-  picture: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired,
-};
 
 export default UserPicture;

@@ -19,17 +19,17 @@ const SKETCHBOOK_QUERY = gql`
 `;
 
 class Sketchbook extends React.Component {
-  static propTypes = {
-    user: PropTypes.shape({
+  props: {
+    user: {
       name: PropTypes.string,
-    }),
-    data: PropTypes.shape({
+    },
+    data: {
       loading: PropTypes.bool,
       sketchbook: PropTypes.array,
-    }),
+    },
   };
 
-  render() {
+  render(): HTMLDivElement {
     const { user, data: { loading } } = this.props;
     return loading
       ? <div>Loading...</div>
@@ -39,7 +39,7 @@ class Sketchbook extends React.Component {
         </div>;
   }
 
-  renderArt() {
+  renderArt(): HTMLUListElement {
     const { sketchbook } = this.props.data;
     return (
       <ul>

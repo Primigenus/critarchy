@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const SignedInNav = () => (
+const SignedInNav = (): HTMLUListElement => (
   <ul>
     <li><NavLink exact to="/" activeClassName="active">Latest</NavLink></li>
     <li>
@@ -15,13 +14,17 @@ const SignedInNav = () => (
   </ul>
 );
 
-const SignedOutNav = () => (
+const SignedOutNav = (): HTMLUListElement => (
   <ul>
     <li><NavLink to="/signin" activeClassName="active">Sign in</NavLink></li>
   </ul>
 );
 
-const Header = ({ hasUser }) => (
+type UserDetails = {
+  hasUser: boolean,
+};
+
+const Header = ({ hasUser }: UserDetails): HTMLHeaderElement => (
   <header className="main-header">
     <div className="logo"><NavLink to="/">Critarchy</NavLink></div>
     <nav className="main-nav">
@@ -29,7 +32,5 @@ const Header = ({ hasUser }) => (
     </nav>
   </header>
 );
-
-Header.propTypes = { hasUser: PropTypes.bool.isRequired };
 
 export default Header;

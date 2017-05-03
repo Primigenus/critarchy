@@ -1,8 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './style.css';
 
-const Art = ({ image, alt, size }) => (
+type Art = {
+  image: {
+    thumb_large: ?string,
+    thumb_small: ?string,
+  },
+  alt: string,
+  size: string,
+};
+
+const Art = ({ image, alt, size }: Art): HTMLDivElement => (
   <div className="art">
     <img
       src={size === 'large' ? image.thumb_large : image.thumb_small}
@@ -11,14 +19,5 @@ const Art = ({ image, alt, size }) => (
     />
   </div>
 );
-
-Art.propTypes = {
-  image: PropTypes.shape({
-    thumb_large: PropTypes.string,
-    thumb_small: PropTypes.string,
-  }),
-  alt: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired,
-};
 
 export default Art;
