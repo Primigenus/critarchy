@@ -8,10 +8,10 @@ class Profile extends React.Component {
     hasUser: PropTypes.bool,
     user: PropTypes.object,
   };
-  logout() {
+  logout = () => {
     Meteor.logout();
     this.props.history.push('/');
-  }
+  };
   render() {
     return (
       <div>
