@@ -1,0 +1,26 @@
+query {
+  newestCrits(limit: 10) {
+    id
+    createdOn
+    createdBy {
+      name
+      picture
+    }
+    title
+    content
+    art {
+      createdBy {
+        name
+        picture
+      }
+      title
+      image {
+        thumb_large
+      }
+    }
+    thankedBy {
+      name
+      picture
+    }
+  }
+}

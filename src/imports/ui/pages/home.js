@@ -4,35 +4,14 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import CritThumbnailList from '../components/CritThumbnailList';
 import HomeBanner from '../components/HomeBanner';
+import HOME_QUERY from './home.graphql';
 
-const query = gql`
-  query {
-    newestCrits(limit: 10) {
-      id
-      createdOn
-      createdBy {
-        name
-        picture
-      }
-      title
-      content
-      art {
-        createdBy {
-          name
-          picture
-        }
-        title
-        image {
-          thumb_large
-        }
-      }
-      thankedBy {
-        name
-        picture
-      }
-    }
-  }
-`;
+type Props = {
+  data: {
+    loading: boolean,
+    newestCrits: Array<any>,
+  },
+};
 
 class Home extends React.Component {
   static defaultProps = {
@@ -42,12 +21,7 @@ class Home extends React.Component {
       mostThankedCrits: [],
     },
   };
-  static propTypes = {
-    data: PropTypes.shape({
-      loading: PropTypes.bool,
-      newestCrits: PropTypes.array,
-    }),
-  };
+  props: Props;
   render() {
     return (
       <div>
@@ -58,4 +32,4 @@ class Home extends React.Component {
   }
 }
 
-export default graphql(query)(Home);
+export default graphql(HOME_QUERY)(Home);
