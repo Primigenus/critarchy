@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 
 const networkInterface = createNetworkInterface({
   uri: '/graphql',
-  headers: { 'meteor-login-token': Accounts._storedLoginToken() },
+  opts: { headers: { 'meteor-login-token': Accounts._storedLoginToken() } },
 });
 
 networkInterface.useAfter([
