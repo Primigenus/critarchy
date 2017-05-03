@@ -1,8 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import CritThumbnailList from '../components/CritThumbnailList';
-import HomeBanner from '../components/HomeBanner';
+import CritThumbnailList from '../CritThumbnailList';
+import HomeBanner from '../HomeBanner';
 import HOME_QUERY from './home.graphql';
 
 class Home extends React.Component {

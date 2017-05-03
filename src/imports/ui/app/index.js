@@ -5,9 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import withUser from '../../ui/hocs/withUser';
 import { client, store } from '../../startup/client/apollo';
 import Header from '../components/Header';
-import { Home, Upload, SignIn, Sketchbook, Profile } from '../../startup/client/routes';
-
-import '../style/global.css';
+import { Home, Upload, SignIn, Sketchbook, Profile } from '../../ui/components/pages';
 
 const PrivateRoute = ({ component: Component, ...rest }): Route => (
   <Route

@@ -1,8 +1,8 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import uploadClient from '../../data/uploadWithApollo';
-import UploadForm from '../components/UploadForm';
+import uploadClient from '../../../data/uploadWithApollo';
+import UploadForm from '../UploadForm';
 
 const UPLOAD_IMAGE = gql`
   mutation uploadImage($files: [File!]!) {
