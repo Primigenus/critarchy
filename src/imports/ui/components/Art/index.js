@@ -1,5 +1,4 @@
 import React from 'react';
-import './style.css';
 
 type Art = {
   image: {
@@ -10,13 +9,18 @@ type Art = {
   size: string,
 };
 
-const Art = ({ image, alt, size }: Art): HTMLDivElement => (
+const Art = ({ image, alt, size }: Art & Props): HTMLDivElement => (
   <div className="art">
     <img
       src={size === 'large' ? image.thumb_large : image.thumb_small}
       alt={alt}
       className="art-image"
     />
+    <style jsx>{`
+      .art-image {
+        max-width: 100vw;
+      }
+    `}</style>
   </div>
 );
 
