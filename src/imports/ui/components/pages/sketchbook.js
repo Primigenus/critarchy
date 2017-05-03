@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import TimeAgo from 'react-timeago';
@@ -21,11 +20,11 @@ const SKETCHBOOK_QUERY = gql`
 class Sketchbook extends React.Component {
   props: {
     user: {
-      name: PropTypes.string,
+      name: string,
     },
     data: {
-      loading: PropTypes.bool,
-      sketchbook: PropTypes.array,
+      loading: boolean,
+      sketchbook: Array<any>,
     },
   };
 

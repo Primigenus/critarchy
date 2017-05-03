@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
 class SignIn extends React.Component {
