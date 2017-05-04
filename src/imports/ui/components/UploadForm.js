@@ -64,6 +64,14 @@ export default class UploadForm extends React.Component {
   render(): HTMLFormElement {
     return (
       <form method="post" onSubmit={this.handleSubmit} encType="multipart/form-data">
+        <h2 className="title">
+          Upload your art
+        </h2>
+        <p>
+          You can upload one or multiple pieces of artwork. We'll show you previews
+          after the upload completes and you'll be able to enter a title for each
+          piece.
+        </p>
         <p>
           <label htmlFor="file">File(s) to upload</label>
           <input type="file" id="file" multiple onChange={this.changeFiles} />
@@ -74,6 +82,7 @@ export default class UploadForm extends React.Component {
         <p>
           <input
             type="submit"
+            className="button"
             defaultValue="Upload"
             disabled={
               !this.state.selectedFiles || !!this.state.uploading || !!this.state.uploadError
@@ -81,6 +90,15 @@ export default class UploadForm extends React.Component {
           />
         </p>
         {this.renderUploadedImages()}
+        <style jsx>{`
+          label {
+            display: block;
+            font-weight: bold;
+          }
+          input {
+            font-size: 16px;
+          }
+        `}</style>
       </form>
     );
   }
