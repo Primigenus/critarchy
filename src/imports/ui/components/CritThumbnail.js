@@ -41,25 +41,42 @@ export default class CritThumbnail extends Component {
   };
 
   render(): HTMLDivElement {
+    const { crit } = this.props;
+    const { art } = crit;
     return (
       <div>
-        <div>{this.props.crit.content}</div>
+        <div>{crit.content}</div>
         <div>
           <div>
             <ThumbsUpIcon
-              id={this.props.crit.id}
+              id={crit.id}
               /* TODO(diedra): Determine isLiked by checking if the current
                * user is in the critique's likedBy list.
                */
               isLiked={false}
             />
           </div>
-          <Art image={this.props.crit.art.image} alt={this.props.crit.art.title} size="large" />
-          <br />
-          by{' '}
-          <img src={this.props.crit.art.createdBy.picture} alt="" width="40" height="40" />
-          {this.props.crit.art.createdBy.name}
+          <Art image={art.image} alt={art.title} size="large" />
+          <div className="artist-details">
+            by
+            <img src={art.createdBy.picture} alt="" width="24" height="24" />
+            {art.createdBy.name}
+          </div>
         </div>
+        <style jsx>{`
+          .artist-details {
+            padding: .5rem;
+            font-size: smaller;
+            color: var(--textMinorColor);
+          }
+          .artist-details img {
+            vertical-align: middle;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            margin: 0 4px;
+          }
+        `}</style>
       </div>
     );
   }
