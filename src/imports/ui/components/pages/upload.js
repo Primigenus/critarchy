@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import uploadClient from '../../../data/uploadWithApollo';
+import Page from '../../hocs/Page';
 import UploadForm from '../UploadForm';
 
 const UPLOAD_IMAGE = gql`
@@ -20,12 +21,8 @@ class UploadImage extends React.Component {
     });
   }
   render(): HTMLDivElement {
-    return (
-      <div>
-        <UploadForm onSubmit={UploadImage.handleFormSubmit} />
-      </div>
-    );
+    return <UploadForm onSubmit={UploadImage.handleFormSubmit} />;
   }
 }
 
-export default graphql(UPLOAD_IMAGE)(UploadImage);
+export default graphql(UPLOAD_IMAGE)(Page(UploadImage));

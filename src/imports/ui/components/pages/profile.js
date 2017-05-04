@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import Page from '../../hocs/Page';
 
 class Profile extends React.Component {
   props: {
@@ -38,4 +39,4 @@ class Profile extends React.Component {
   }
 }
 
-export default withRouter(Profile);
+export default withRouter(Page(Profile));
