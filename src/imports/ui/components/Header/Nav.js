@@ -53,6 +53,7 @@ const Nav = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
         list-style: none;
         margin: 0;
         padding: 0;
+        border-top: solid 1px var(--greyDark);
       }
       li {
         display: inline-block;
@@ -64,12 +65,15 @@ const Nav = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
         align-items: center;
         padding: 1rem;
         text-decoration: none;
-        border: solid 1px var(--greyDark);
         color: var(--textColor);
       }
       li :global(.active) {
         font-weight: bold;
-        background-color: white;
+        background-color: black;
+        color: white;
+        text-transform: uppercase;
+        margin-top: -.5rem;
+        padding-bottom: 1.5rem;
       }
     `}</style>
   </div>
