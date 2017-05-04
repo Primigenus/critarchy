@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import TimeAgo from 'react-timeago';
+import Art from '../Art';
 
 const SKETCHBOOK_QUERY = gql`
   query {
@@ -10,7 +11,7 @@ const SKETCHBOOK_QUERY = gql`
       createdOn
       title
       image {
-        thumb_small
+        thumb_large
       }
       numCrits
     }
@@ -41,16 +42,22 @@ class Sketchbook extends React.Component {
   renderArt(): HTMLUListElement {
     const { sketchbook } = this.props.data;
     return (
-      <ul>
+      <ul className="sketchbook-items">
         {sketchbook.map((art, i) => (
           <li key={i}>
-            <h2>{art.title}</h2>
-            <img src={art.image.thumb_small} alt="" />
+            <Art {...art} size="large" />
             <p>
               Posted <TimeAgo date={art.createdOn} /> - {art.numCrits} crits
             </p>
           </li>
         ))}
+        <style jsx>{`
+          .sketchbook-items {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+          }
+        `}</style>
       </ul>
     );
   }
