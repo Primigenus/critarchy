@@ -19,7 +19,7 @@ export default class UploadForm extends React.Component {
       (e ? 'kMGTPEZY'[--e] + 'B' : 'Bytes');
     return fn(size);
   }
-  changeFiles(evt: Event): void {
+  changeFiles = (evt: Event): void => {
     this.files = evt.target.files;
 
     const arrayFiles = Array.from(this.files);
@@ -40,8 +40,8 @@ export default class UploadForm extends React.Component {
       uploadError,
       uploadingImages: arrayFiles,
     });
-  }
-  async handleSubmit(evt: Event): void {
+  };
+  handleSubmit = async (evt: Event): void => {
     evt.preventDefault();
     this.setState({ uploading: true });
     let result;
@@ -60,13 +60,13 @@ export default class UploadForm extends React.Component {
         uploadError: 'An error occurred on the server. Please try again.',
       });
     }
-  }
+  };
   render(): HTMLFormElement {
     return (
-      <form method="post" onSubmit={evt => this.handleSubmit(evt)} encType="multipart/form-data">
+      <form method="post" onSubmit={this.handleSubmit} encType="multipart/form-data">
         <p>
           <label htmlFor="file">File(s) to upload</label>
-          <input type="file" id="file" multiple onChange={evt => this.changeFiles(evt)} />
+          <input type="file" id="file" multiple onChange={this.changeFiles} />
         </p>
         {this.renderUploadingMessage()}
         {this.renderUploadError()}
