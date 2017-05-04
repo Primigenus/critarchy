@@ -38,6 +38,29 @@ class App extends React.Component {
               <PrivateRoute path="/sketchbook" component={withUser(Sketchbook)} />
               <PrivateRoute path="/profile" component={withUser(Profile)} />
             </main>
+            <style jsx global>{`
+              .title {
+                background-color: black;
+                color: #fff;
+                line-height: 1rem;
+                text-transform: uppercase;
+                margin: 0 -2rem 1rem -2rem;
+                padding: .5rem 1rem 0 2rem;
+                display: inline-block;
+              }
+              .button {
+                display: inline-block;
+                background-color: var(--linkColor);
+                color: var(--invertedTextColor) !important;
+                padding: .5rem 1rem;
+                text-decoration: none;
+                border: none;
+              }
+              .button:disabled {
+                color: var(--greyDark);
+                background-color: var(--linkDisabledColor);
+              }
+            `}</style>
           </div>
         </Router>
       </ApolloProvider>
