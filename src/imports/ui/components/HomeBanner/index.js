@@ -1,26 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const HomeBanner = (): HTMLDivElement => (
+type UserDetails = {
+  hasUser: boolean,
+};
+
+const HomeBanner = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
   <div>
     <div role="banner" className="home-banner">
-      <h1>A community of critiques</h1>
-      <p>Critarchy is an engine for helping artists improve.</p>
+      <h1>An engine for helping artists improve</h1>
       <p>
         We believe getting better is about constant iteration and positive
         reinforcement, so rather than focus on the art, here we focus on sharing
         constructive feedback with one another.
       </p>
-      <p><Link to="/signin">Get started</Link></p>
+      <p>
+        <Link to={hasUser ? '/upload' : '/signin'} className="button">Get started</Link>
+      </p>
     </div>
     <style jsx>{`
       .home-banner {
-        background-color: #eee;
+        border-bottom: solid 1px var(--borderColor);
         padding: 2rem;
+        margin-bottom: 2rem;
       }
       .home-banner h1 {
         font-size: 1.25rem;
         margin-top: 0;
+      }
+      .home-banner > *:last-child {
+        margin-bottom: 0;
       }
     `}</style>
   </div>
