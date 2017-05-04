@@ -1,19 +1,19 @@
 import React from 'react';
 
+type ThumbLarge = { thumb_large?: string };
+type ThumbSmall = { thumb_small?: string };
+
 type Art = {
-  image: {
-    thumb_large: ?string,
-    thumb_small: ?string,
-  },
-  alt: string,
-  size: string,
+  image: ThumbLarge & ThumbSmall,
+  alt?: string,
+  size?: string,
 };
 
 const Art = ({ image, alt, size }: Art & Props): HTMLDivElement => (
   <div className="art">
     <img
       src={size === 'large' ? image.thumb_large : image.thumb_small}
-      alt={alt}
+      alt={alt ? alt : ''}
       className="art-image"
     />
     <style jsx>{`
