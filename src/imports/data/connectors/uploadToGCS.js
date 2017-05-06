@@ -5,51 +5,52 @@ import fs from 'fs';
 
 const THUMB_SIZES = [600, 320];
 
-const uploadImageWithSize = ({ bucket, file, size }) => new Promise((resolve, reject) => {
-  const info = path.parse(file.name);
-  // TODO: place in some kind of folder structure (based on user?)
-  const newExt = size === 'orig' ? info.ext : '.jpg';
-  const filename = `${Date.now()}_${info.name}_${size}${newExt}`;
-  const blob = bucket.file(filename);
-  const fileData = fs.readFileSync(file.path);
-  let buffer = new Promise(resolve => resolve(fileData));
+const uploadImageWithSize = ({ bucket, file, size }) =>
+  new Promise((resolve, reject) => {
+    const info = path.parse(file.name);
+    // TODO: place in some kind of folder structure (based on user?)
+    const newExt = size === 'orig' ? info.ext : '.jpg';
+    const filename = `${Date.now()}_${info.name}_${size}${newExt}`;
+    const blob = bucket.file(filename);
+    const fileData = fs.readFileSync(file.path);
+    let buffer = new Promise(resolve => resolve(fileData));
 
-  if (size !== 'orig') {
-    buffer = sharp(fileData)
-      .withoutEnlargement()
-      .resize(size)
-      .crop(sharp.strategy.attention)
-      .toFormat('jpeg')
-      .toBuffer();
-  }
+    if (size !== 'orig') {
+      buffer = sharp(fileData)
+        .withoutEnlargement()
+        .resize(size)
+        .crop(sharp.strategy.attention)
+        .toFormat('jpeg')
+        .toBuffer();
+    }
 
-  const blobStream = blob.createWriteStream({
-    // Google recommends setting this to false for files <10 MB
-    // see https://googlecloudplatform.github.io/google-cloud-node
-    //     /#/docs/google-cloud/0.45.0/storage/file?method=createWriteStream
-    resumable: false,
-    public: true,
-    gzip: true,
-    metadata: { contentType: 'image/jpeg' },
-  });
-
-  blobStream.on('error', err => {
-    reject(`Error handling upload to GCS: ${err}`);
-  });
-
-  blobStream.on('finish', () => {
-    resolve({
-      size,
-      filename: file.originalname,
-      publicUrl: `https://storage.googleapis.com/${bucket.name}/${filename}`,
+    const blobStream = blob.createWriteStream({
+      // Google recommends setting this to false for files <10 MB
+      // see https://googlecloudplatform.github.io/google-cloud-node
+      //     /#/docs/google-cloud/0.45.0/storage/file?method=createWriteStream
+      resumable: false,
+      public: true,
+      gzip: true,
+      metadata: { contentType: 'image/jpeg' },
     });
-  });
 
-  buffer.then(
-    buff => blobStream.end(buff),
-    err => reject(`Error sending image from sharp to GCS: ${err}`)
-  );
-});
+    blobStream.on('error', err => {
+      reject(`Error handling upload to GCS: ${err}`);
+    });
+
+    blobStream.on('finish', () => {
+      resolve({
+        size,
+        filename: file.originalname,
+        publicUrl: `https://storage.googleapis.com/${bucket.name}/${filename}`,
+      });
+    });
+
+    buffer.then(
+      buff => blobStream.end(buff),
+      err => reject(`Error sending image from sharp to GCS: ${err}`)
+    );
+  });
 
 const uploadImage = ({ bucket, file }) => {
   const promises = ['orig']
