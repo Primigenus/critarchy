@@ -31,10 +31,14 @@ class UploadImage extends React.Component {
           Upload your art
         </h1>
         <p>Post art to your sketchbook!</p>
-        <p>
-          You can upload up to five pieces at once. We'll show you previews
-          before uploading and ask you for a title for each piece.
-        </p>
+        <ul>
+          <li>You can upload up to five pieces at once.</li>
+          <li>Images should be less than 5MB in size.</li>
+          <li>
+            We'll show you previews before uploading and ask you for
+            a title for each piece.
+          </li>
+        </ul>
         <UploadForm onSubmit={UploadImage.handleFormSubmit} />
       </div>
     );

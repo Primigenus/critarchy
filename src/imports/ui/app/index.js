@@ -40,13 +40,14 @@ class App extends React.Component {
             </main>
             <style jsx global>{`
               .title {
-                background-color: black;
-                color: #fff;
+                background-color: var(--colorBlack);
+                color: var(--colorWhite);
                 line-height: 1rem;
                 text-transform: uppercase;
-                margin: 0 -2rem 1rem -2rem;
-                padding: .5rem 1rem 0 2rem;
+                margin: 0 -2rem 1rem -2.5rem;
+                padding: 1rem 1rem 1rem 2rem;
                 display: inline-block;
+                transform: skewX(-5deg);
               }
               .button {
                 display: inline-block;
