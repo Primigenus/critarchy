@@ -1,24 +1,31 @@
+// @flow
+
 import React from 'react';
+import type { Image } from '../../flowtypes/types';
 
 export default class UploadForm extends React.Component {
-  props: { onSubmit: Array<File> => Promise<mixed> };
+  files: FileList;
+  props: {
+    onSubmit: FileList => Promise<{ data: { uploadImage: Array<Array<Image>> } }>,
+  };
   state = {
-    uploadedImages: null,
-    uploadingImages: null,
+    uploadedImages: [],
+    uploadingImages: [],
     uploading: false,
-    uploadError: null,
+    uploadError: undefined,
     selectedFiles: false,
   };
-  static formatFileSize(size: string): number {
+  static formatFileSize(size: number): string {
     // http://stackoverflow.com/a/20463021/16308
     const fn = (a, b, c, d, e) =>
-      ((b = Math), (c = b.log), (d = 1e3), (e = (c(a) / c(d)) | 0), a / b.pow(d, e)).toFixed(2) +
+      ((a = +a), (b = Math), (c = b.log), (d = 1e3), (e = (c(a) / c(d)) | 0), a /
+        b.pow(d, e)).toFixed(2) +
       ' ' +
       (e ? 'kMGTPEZY'[--e] + 'B' : 'Bytes');
     return fn(size);
   }
-  changeFiles = (evt: Event): void => {
-    this.files = evt.target.files;
+  changeFiles = ({ target }: { target: HTMLInputElement }): void => {
+    this.files = target.files;
 
     const arrayFiles = Array.from(this.files).map(f => ({
       file: f,
@@ -43,7 +50,7 @@ export default class UploadForm extends React.Component {
       uploadingImages: arrayFiles,
     });
   };
-  handleSubmit = async (evt: Event): void => {
+  handleSubmit = async (evt: Event): Promise<mixed> => {
     evt.preventDefault();
     this.setState({ uploading: true });
     let result;
@@ -63,7 +70,7 @@ export default class UploadForm extends React.Component {
       });
     }
   };
-  render(): HTMLFormElement {
+  render() {
     return (
       <form method="post" onSubmit={this.handleSubmit} encType="multipart/form-data">
         <div className="upload-box">
@@ -113,10 +120,10 @@ export default class UploadForm extends React.Component {
       </form>
     );
   }
-  renderUploadingMessage(): ?HTMLDivElement {
+  renderUploadingMessage() {
     return this.state.uploading ? <div className="loading">Uploading...</div> : null;
   }
-  renderUploadError(): ?HTMLParagraphElement {
+  renderUploadError() {
     return this.state.uploadError
       ? <div className="upload-error">
           <p>{this.state.uploadError}</p>
@@ -131,7 +138,7 @@ export default class UploadForm extends React.Component {
         </div>
       : null;
   }
-  renderUploadingImages(): ?HTMLDivElement {
+  renderUploadingImages() {
     const { uploadingImages } = this.state;
     if (this.state.uploadError) {
       return null;
@@ -222,7 +229,7 @@ export default class UploadForm extends React.Component {
     }
     return null;
   }
-  renderUploadedImages(): ?Array<HTMLParagraphElement> {
+  renderUploadedImages() {
     const { uploadedImages } = this.state;
     if (uploadedImages) {
       return uploadedImages.map((url, i) => (

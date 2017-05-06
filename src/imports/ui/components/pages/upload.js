@@ -17,7 +17,7 @@ const UPLOAD_IMAGE = gql`
 `;
 
 class UploadImage extends React.Component {
-  static async handleFormSubmit(files: Array<File>): Promise<mixed> {
+  static async handleFormSubmit(files: FileList): Promise<{ data: { uploadImage: Array<mixed> } }> {
     return await uploadClient.mutate({
       mutation: UPLOAD_IMAGE,
       variables: { files },
