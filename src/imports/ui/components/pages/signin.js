@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
+import Page from '../../hocs/Page';
+import DefaultHelmet from '../../components/DefaultHelmet';
 
 class SignIn extends React.Component {
   props: {
@@ -9,18 +11,18 @@ class SignIn extends React.Component {
   state = {
     redirect: false,
   };
-  onClickGoogle(evt: Event) {
+  onClickGoogle = (evt: Event): void => {
     evt.preventDefault();
     Meteor.loginWithGoogle(() => {
       this.setState({ redirect: true });
     });
-  }
-  onClickFacebook(evt: Event) {
+  };
+  onClickFacebook = (evt: Event): void => {
     evt.preventDefault();
     Meteor.loginWithFacebook(() => {
       this.setState({ redirect: true });
     });
-  }
+  };
   render(): Redirect | HTMLDivElement {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     const { redirect } = this.state;
@@ -29,21 +31,33 @@ class SignIn extends React.Component {
     }
     return (
       <div>
-        <h1>Sign in</h1>
+        <DefaultHelmet>
+          <title>Sign in</title>
+        </DefaultHelmet>
+        <h1 className="title">Sign in</h1>
         <div>
           {!this.props.hasUser &&
-            <div>
-              <button onClick={e => this.onClickGoogle(e)}>
-                Sign in with Google
-              </button>
-              <button onClick={e => this.onClickFacebook(e)}>
-                Sign in with Facebook
-              </button>
+            <div className="signin">
+              <p>
+                <button onClick={this.onClickGoogle} className="button">
+                  Sign in with Google
+                </button>
+              </p>
+              <p>
+                <button onClick={this.onClickFacebook} className="button">
+                  Sign in with Facebook
+                </button>
+              </p>
             </div>}
         </div>
+        <style jsx>{`
+          .signin {
+            text-align: center;
+          }
+        `}</style>
       </div>
     );
   }
 }
 
-export default withRouter(SignIn);
+export default withRouter(Page(SignIn));

@@ -34,7 +34,7 @@ class Sketchbook extends React.Component {
     return loading
       ? <div>Loading...</div>
       : <div>
-          <h1>{user.name}'s sketchbook</h1>
+          <h1 className="title">{user.name}'s sketchbook</h1>
           {this.renderArt()}
         </div>;
   }

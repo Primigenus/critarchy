@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Page from '../../hocs/Page';
+import DefaultHelmet from '../../components/DefaultHelmet';
 
 class Profile extends React.Component {
   props: {
@@ -16,10 +17,13 @@ class Profile extends React.Component {
   render(): HTMLDivElement {
     return (
       <div>
-        <h1>Profile</h1>
+        <DefaultHelmet>
+          <title>Profile</title>
+        </DefaultHelmet>
+        <h1 className="title">Profile</h1>
         {this.renderSignedInFacebook()}
         {this.renderSignedInGoogle()}
-        <p><button onClick={this.logout}>Sign out</button></p>
+        <p><button onClick={this.logout} className="button">Sign out</button></p>
       </div>
     );
   }

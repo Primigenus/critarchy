@@ -1,9 +1,7 @@
 import React from 'react';
 
-type Props = { onSubmit: Array<File> => Promise<any> };
-
 export default class UploadForm extends React.Component {
-  props: Props;
+  props: { onSubmit: Array<File> => Promise<any> };
   state = {
     uploadedImages: null,
     uploadingImages: null,
@@ -22,17 +20,21 @@ export default class UploadForm extends React.Component {
   changeFiles = (evt: Event): void => {
     this.files = evt.target.files;
 
-    const arrayFiles = Array.from(this.files);
+    const arrayFiles = Array.from(this.files).map(f => ({
+      file: f,
+      tooBig: f.size >= 5000000,
+    }));
 
-    const fileTooBig = arrayFiles.filter(f => f.size >= 5000000).length > 0;
+    const fileTooBig = arrayFiles.find(f => f.tooBig) !== undefined;
     const tooManyFiles = arrayFiles.length > 5;
+    // const wrongType = arrayFiles.find(f => /jpg|jpeg|png$/.test(f.type)) !== undefined;
     let uploadError = null;
 
     if (fileTooBig) {
-      uploadError = 'Please only select images smaller than 5MB.';
+      uploadError = 'Please select only images smaller than 5MB.';
     }
     if (tooManyFiles) {
-      uploadError = 'Please upload at most 5 files.';
+      uploadError = 'Please upload at most 5 images.';
     }
 
     this.setState({
@@ -49,7 +51,7 @@ export default class UploadForm extends React.Component {
       result = await this.props.onSubmit(this.files);
       this.setState({
         uploadedImages: result.data.uploadImage
-          .map(images => images.map(image => image.publicUrl))
+          .map(images => images.map(image => image.thumb_small))
           .reduce((a, b) => a.concat(b)),
         uploading: false,
       });
@@ -64,68 +66,157 @@ export default class UploadForm extends React.Component {
   render(): HTMLFormElement {
     return (
       <form method="post" onSubmit={this.handleSubmit} encType="multipart/form-data">
-        <h2 className="title">
-          Upload your art
-        </h2>
-        <p>
-          You can upload one or multiple pieces of artwork. We'll show you previews
-          after the upload completes and you'll be able to enter a title for each
-          piece.
-        </p>
-        <p>
-          <label htmlFor="file">File(s) to upload</label>
+        <div className="upload-box">
+          <label htmlFor="file" tabIndex="0" className="button">
+            Choose file(s) to upload...
+          </label>
           <input type="file" id="file" multiple onChange={this.changeFiles} />
-        </p>
-        {this.renderUploadingMessage()}
-        {this.renderUploadError()}
+          {this.renderUploadError()}
+        </div>
+
         {this.renderUploadingImages()}
-        <p>
-          <input
-            type="submit"
-            className="button"
-            defaultValue="Upload"
-            disabled={
-              !this.state.selectedFiles || !!this.state.uploading || !!this.state.uploadError
-            }
-          />
-        </p>
+
+        {this.renderUploadingMessage()}
+
+        {!this.state.uploadError &&
+          this.state.selectedFiles &&
+          <p>
+            <input
+              type="submit"
+              className="button"
+              defaultValue="Upload to sketchbook"
+              disabled={
+                !this.state.selectedFiles || !!this.state.uploading || !!this.state.uploadError
+              }
+            />
+          </p>}
+
         {this.renderUploadedImages()}
+
         <style jsx>{`
           label {
             display: block;
             font-weight: bold;
           }
-          input {
-            font-size: 16px;
+          input[type=file] {
+            width: 0.1px;
+          	height: 0.1px;
+          	opacity: 0;
+          	overflow: hidden;
+          	position: absolute;
+          	z-index: -1;
+          }
+          .upload-box label:focus {
+            outline: auto;
           }
         `}</style>
       </form>
     );
   }
-  renderUploadingMessage(): HTMLDivElement | HTMLSpanElement {
-    return this.state.uploading ? <div className="loading">Uploading...</div> : <span />;
+  renderUploadingMessage(): ?HTMLDivElement {
+    return this.state.uploading ? <div className="loading">Uploading...</div> : null;
   }
   renderUploadError(): ?HTMLParagraphElement {
-    if (this.state.uploadError) {
-      return <p>{this.state.uploadError}</p>;
-    }
-    return null;
+    return this.state.uploadError
+      ? <div className="upload-error">
+          <p>{this.state.uploadError}</p>
+          <style jsx>{`
+            .upload-error {
+              margin-top: 1rem;
+              padding: 1rem;
+              background-color: var(--warningColor);
+            }
+            .upload-error p { margin: 0; }
+          `}</style>
+        </div>
+      : null;
   }
   renderUploadingImages(): ?HTMLDivElement {
     const { uploadingImages } = this.state;
+    if (this.state.uploadError) {
+      return null;
+    }
     if (uploadingImages) {
       return (
-        <div>
-          You selected:
+        <div className="uploading-images">
           <ul>
-            {uploadingImages.map((file, i) => (
+            {uploadingImages.map(({ file }, i) => (
               <li key={i}>
-                <img src={window.URL.createObjectURL(file)} alt="" style={{ height: 30 }} />
-                {file.name} ({UploadForm.formatFileSize(file.size)})
-                {i + 1 < uploadingImages.length ? ', ' : ''}
+                <div className="image-preview">
+                  <img src={window.URL.createObjectURL(file)} alt="" />
+                  <div className="image-details">
+                    <span className="filename">{file.name}</span>
+                    <span className="filesize">
+                      {UploadForm.formatFileSize(file.size)}
+                    </span>
+                  </div>
+                  <div className="image-title">
+                    <input type="text" name={`title-${i}`} required />
+                    <label htmlFor={`title-${i}`}>
+                      Enter a title for this piece
+                    </label>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
+          <style jsx>{`
+            .uploading-images {
+              margin-top: 1rem;
+            }
+            .uploading-images ul {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            .uploading-images li {
+              margin-bottom: 2rem;
+              line-height: 2rem;
+            }
+            .image-details {
+              display: flex;
+              justify-content: space-between;
+              font-size: smaller;
+              color: var(--textMinorColor);
+            }
+            .uploading-images img {
+              margin: 0 -2rem;
+              vertical-align: middle;
+              width: 100vw;
+              height: 200px;
+              object-fit: contain;
+              background-color: black;
+            }
+            .uploading-images .filename {
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              max-width: 45vw;
+              overflow: hidden;
+              display: inline-block;
+              vertical-align: middle;
+              margin-right: 1rem;
+            }
+            .image-title {
+              position: relative;
+            }
+            .image-title label {
+              position: absolute;
+              top: 2px; left: 8px;
+              pointer-events: none;
+              color: #555;
+              font-size: smaller;
+            }
+            .image-title input[type=text] {
+              border: solid 1px #555;
+              padding: .5rem;
+              display: block;
+              width: 100%;
+              box-sizing: border-box;
+            }
+            .image-title input:focus + label, .image-title input:valid + label {
+              opacity: 0;
+            }
+          `}</style>
         </div>
       );
     }

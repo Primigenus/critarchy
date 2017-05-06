@@ -4,11 +4,12 @@ import gql from 'graphql-tag';
 import uploadClient from '../../../data/uploadWithApollo';
 import Page from '../../hocs/Page';
 import UploadForm from '../UploadForm';
+import DefaultHelmet from '../../components/DefaultHelmet';
 
 const UPLOAD_IMAGE = gql`
   mutation uploadImage($files: [File!]!) {
     uploadImage(files: $files) {
-      publicUrl
+      thumb_small
     }
   }
 `;
@@ -21,7 +22,22 @@ class UploadImage extends React.Component {
     });
   }
   render(): HTMLDivElement {
-    return <UploadForm onSubmit={UploadImage.handleFormSubmit} />;
+    return (
+      <div>
+        <DefaultHelmet>
+          <title>Upload your art</title>
+        </DefaultHelmet>
+        <h1 className="title">
+          Upload your art
+        </h1>
+        <p>Post art to your sketchbook!</p>
+        <p>
+          You can upload up to five pieces at once. We'll show you previews
+          before uploading and ask you for a title for each piece.
+        </p>
+        <UploadForm onSubmit={UploadImage.handleFormSubmit} />
+      </div>
+    );
   }
 }
 
