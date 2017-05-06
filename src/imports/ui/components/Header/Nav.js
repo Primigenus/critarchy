@@ -43,10 +43,12 @@ const Nav = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
         flex-direction: column;
         justify-content: center;
         position: fixed;
+        z-index: 999999;
         bottom: 0;
         left: 0;
         right: 0;
         background-color: var(--primary);
+        -webkit-backdrop-filter: blur(10px);
       }
       ul {
         display: flex;
@@ -69,11 +71,6 @@ const Nav = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
       }
       li :global(.active) {
         font-weight: bold;
-        background-color: black;
-        color: white;
-        text-transform: uppercase;
-        margin-top: -.5rem;
-        padding-bottom: 1.5rem;
       }
     `}</style>
   </div>

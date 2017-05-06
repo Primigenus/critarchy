@@ -55,10 +55,18 @@ class App extends React.Component {
                 padding: .5rem 1rem;
                 text-decoration: none;
                 border: none;
+                font-size: 1rem;
+                cursor: pointer;
               }
               .button:disabled {
                 color: var(--greyDark);
                 background-color: var(--linkDisabledColor);
+              }
+              .button:hover {
+                background-color: var(--linkHoverColor);
+              }
+              input {
+                font-size: 16px;
               }
             `}</style>
           </div>
