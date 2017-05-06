@@ -53,6 +53,7 @@
     "react-addons-pure-render-mixin": "^15.4.2",
     "react-apollo": "^1.1.2",
     "react-dom": "^15.4.2",
+    "react-helmet": "^5.0.3",
     "react-komposer": "^2.0.0",
     "react-loadable": "^3.3.1",
     "react-router-dom": "^4.1.1",
