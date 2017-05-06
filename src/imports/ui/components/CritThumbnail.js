@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import ThumbsUpIcon from '../components/icons/ThumbsUpIcon';
 import Art from '../components/Art';
@@ -12,20 +14,17 @@ type User = {
  */
 export default class CritThumbnail extends Component {
   props: {
-    /* TODO(diedra): Split this off into a separate object in a shared propTypes
-     * file that can be reused in the propTypes of different components.
-     */
     crit: {
       id: string,
       createdOn: number,
-      createdBy: ?User,
+      createdBy: User,
       title: string,
       content: string,
       art: {
         title: string,
-        createdBy: ?User,
+        createdBy: User,
         image: {
-          thumb_large: string,
+          thumb_small: string,
         },
       },
       thankedBy: Array<User>,
@@ -40,7 +39,7 @@ export default class CritThumbnail extends Component {
     expanded: true,
   };
 
-  render(): HTMLDivElement {
+  render() {
     const { crit } = this.props;
     const { art } = crit;
     return (
@@ -60,7 +59,7 @@ export default class CritThumbnail extends Component {
           <div className="artist-details">
             by
             <img src={art.createdBy.picture} alt="" width="24" height="24" />
-            {art.createdBy.name}
+            {art.createdBy && art.createdBy.name}
           </div>
         </div>
         <style jsx>{`

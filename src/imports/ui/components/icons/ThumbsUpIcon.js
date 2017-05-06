@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 
 export default class ThumbsUpIcon extends React.Component {
@@ -28,7 +30,7 @@ export default class ThumbsUpIcon extends React.Component {
     });
   };
 
-  render(): HTMLSVGElement {
+  render() {
     const fillColor = this.state.isLiked ? '#00BCD4' : '#000000';
 
     return (

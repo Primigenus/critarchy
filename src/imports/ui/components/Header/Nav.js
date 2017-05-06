@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -5,7 +7,7 @@ type UserDetails = {
   hasUser: boolean,
 };
 
-const Nav = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
+const Nav = ({ hasUser }: UserDetails) => (
   <div>
     <nav className="main-nav">
       {hasUser

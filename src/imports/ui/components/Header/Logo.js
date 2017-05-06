@@ -1,7 +1,9 @@
+// @flow
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Logo = (): HTMLDivElement => (
+const Logo = () => (
   <div className="logo">
     <NavLink to="/" className="logo-link">Critarchy</NavLink>
     <style jsx>{`

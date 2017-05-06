@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
@@ -7,7 +9,7 @@ type UserDetails = {
   hasUser: boolean,
 };
 
-const Header = ({ hasUser }: UserDetails & Props): HTMLHeaderElement => (
+const Header = ({ hasUser }: UserDetails) => (
   <header className="main-header">
     <Logo />
     <Nav hasUser={hasUser} />

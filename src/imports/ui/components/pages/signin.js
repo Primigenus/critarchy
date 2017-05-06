@@ -1,3 +1,5 @@
+// @flow
+
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
@@ -7,6 +9,13 @@ import DefaultHelmet from '../../components/DefaultHelmet';
 class SignIn extends React.Component {
   props: {
     hasUser: boolean,
+    location: {
+      state: {
+        from: {
+          pathname: string,
+        },
+      },
+    },
   };
   state = {
     redirect: false,
@@ -23,7 +32,7 @@ class SignIn extends React.Component {
       this.setState({ redirect: true });
     });
   };
-  render(): Redirect | HTMLDivElement {
+  render(): Redirect | React.Element<mixed> {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     const { redirect } = this.state;
     if (redirect) {

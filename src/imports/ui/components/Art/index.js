@@ -1,15 +1,9 @@
+// @flow
+
 import React from 'react';
+import type { Artwork } from '../../../flowtypes/types';
 
-type ThumbLarge = { thumb_large?: string };
-type ThumbSmall = { thumb_small?: string };
-
-type Art = {
-  image: ThumbLarge & ThumbSmall,
-  alt?: string,
-  size?: string,
-};
-
-const Art = ({ image, alt, size }: Art & Props): HTMLDivElement => (
+const Art = ({ image, alt, size }: Artwork) => (
   <div className="art">
     <img
       src={size === 'large' ? image.thumb_large : image.thumb_small}

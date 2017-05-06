@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class UploadForm extends React.Component {
-  props: { onSubmit: Array<File> => Promise<any> };
+  props: { onSubmit: Array<File> => Promise<mixed> };
   state = {
     uploadedImages: null,
     uploadingImages: null,

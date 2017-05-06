@@ -15,6 +15,9 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/.meteor/local/build/pro
 # e.g. "meteor/meteor"
 module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/.meteor/local/build/programs/web.browser/packages/\1'
 
+# GraphQL imports support
+module.name_mapper='.*\(.graphql\)' -> 'empty/object'
+
 [ignore]
 # Ignore the `.meteor/local` packages that aren't important
 .*/.meteor/local/build/programs/server/app/.*

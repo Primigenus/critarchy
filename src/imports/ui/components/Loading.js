@@ -1,4 +1,12 @@
+// @flow
+
 import React from 'react';
+
+type Props = {
+  isLoading: boolean,
+  error?: string,
+  pastDelay?: number,
+};
 
 export default ({ isLoading, error, pastDelay }: Props) => {
   if (isLoading) {

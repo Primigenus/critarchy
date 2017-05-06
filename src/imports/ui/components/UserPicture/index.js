@@ -1,11 +1,9 @@
+// @flow
+
 import React from 'react';
+import type { Picture } from '../../../flowtypes/types';
 
-type UserPicture = {
-  picture: string,
-  size: ?string,
-};
-
-const UserPicture = ({ picture, size = 'normal' }: UserPicture & Props): HTMLDivElement => (
+const UserPicture = ({ picture, size = 'normal' }: Picture) => (
   <div>
     <div className="user-picture">
       <img

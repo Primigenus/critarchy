@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -5,7 +7,7 @@ type UserDetails = {
   hasUser: boolean,
 };
 
-const HomeBanner = ({ hasUser }: UserDetails & Props): HTMLDivElement => (
+const HomeBanner = ({ hasUser }: UserDetails) => (
   <div>
     <div role="banner" className="home-banner">
       <h1>An engine for helping artists improve</h1>

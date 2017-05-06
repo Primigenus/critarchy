@@ -1,8 +1,10 @@
+// @flow
+
 import React from 'react';
 
-export default WrappedComponent =>
+export default (WrappedComponent: ReactClass<any>) =>
   class Page extends React.Component {
-    render(): WrappedComponent {
+    render() {
       return (
         <div className="page-container">
           <WrappedComponent {...this.props} />

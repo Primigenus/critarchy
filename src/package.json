@@ -40,6 +40,7 @@
     "casual": "^1.5.8",
     "classnames": "^2.2.5",
     "cors": "^2.8.1",
+    "empty": "^0.10.1",
     "express": "^4.14.0",
     "formidable": "^1.1.1",
     "graphql": "^0.9.4",

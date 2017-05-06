@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
@@ -9,8 +11,9 @@ class Home extends React.Component {
   props: {
     data: {
       loading: boolean,
-      newestCrits: Array<any>,
+      newestCrits: Array<mixed>,
     },
+    hasUser: boolean,
   };
   static defaultProps = {
     data: {
@@ -19,11 +22,12 @@ class Home extends React.Component {
       mostThankedCrits: [],
     },
   };
-  render(): HTMLDivElement {
+  render() {
+    const { newestCrits } = this.props.data;
     return (
       <div>
-        <HomeBanner />
-        <CritThumbnailList crits={this.props.data.newestCrits} critsAreExpanded={false} />
+        <HomeBanner hasUser={this.props.hasUser} />
+        <CritThumbnailList crits={newestCrits} critsAreExpanded={false} />
       </div>
     );
   }

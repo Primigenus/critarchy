@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -15,13 +17,13 @@ const UPLOAD_IMAGE = gql`
 `;
 
 class UploadImage extends React.Component {
-  static async handleFormSubmit(files: Array<File>): Promise<any> {
+  static async handleFormSubmit(files: Array<File>): Promise<mixed> {
     return await uploadClient.mutate({
       mutation: UPLOAD_IMAGE,
       variables: { files },
     });
   }
-  render(): HTMLDivElement {
+  render() {
     return (
       <div>
         <DefaultHelmet>

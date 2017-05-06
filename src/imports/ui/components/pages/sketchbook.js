@@ -1,8 +1,11 @@
+// @flow
+
 import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import TimeAgo from 'react-timeago';
 import Art from '../Art';
+import type { Artwork } from '../../../flowtypes/types';
 
 const SKETCHBOOK_QUERY = gql`
   query {
@@ -25,11 +28,11 @@ class Sketchbook extends React.Component {
     },
     data: {
       loading: boolean,
-      sketchbook: Array<any>,
+      sketchbook: Array<Artwork>,
     },
   };
 
-  render(): HTMLDivElement {
+  render() {
     const { user, data: { loading } } = this.props;
     return loading
       ? <div>Loading...</div>
@@ -39,7 +42,7 @@ class Sketchbook extends React.Component {
         </div>;
   }
 
-  renderArt(): HTMLUListElement {
+  renderArt() {
     const { sketchbook } = this.props.data;
     return (
       <ul className="sketchbook-items">
