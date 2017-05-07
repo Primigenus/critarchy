@@ -1,12 +1,12 @@
 // @flow
 
 import React from 'react';
-import type { Image } from '../../flowtypes/types';
+import type { UploadResult } from '../../flowtypes/types';
 
 export default class UploadForm extends React.Component {
   files: FileList;
   props: {
-    onSubmit: FileList => Promise<{ data: { uploadImage: Array<Array<Image>> } }>,
+    onSubmit: FileList => Promise<UploadResult>,
   };
   state = {
     uploadedImages: [],

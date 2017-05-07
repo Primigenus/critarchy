@@ -7,6 +7,7 @@ import uploadClient from '../../../data/uploadWithApollo';
 import Page from '../../hocs/Page';
 import UploadForm from '../UploadForm';
 import DefaultHelmet from '../../components/DefaultHelmet';
+import type { UploadResult } from '../../../flowtypes/types';
 
 const UPLOAD_IMAGE = gql`
   mutation uploadImage($files: [File!]!) {
@@ -17,7 +18,7 @@ const UPLOAD_IMAGE = gql`
 `;
 
 class UploadImage extends React.Component {
-  static async handleFormSubmit(files: FileList): Promise<{ data: { uploadImage: Array<mixed> } }> {
+  static async handleFormSubmit(files: FileList): Promise<UploadResult> {
     return await uploadClient.mutate({
       mutation: UPLOAD_IMAGE,
       variables: { files },

@@ -29,3 +29,5 @@ export type User = {
   picture: string,
   services: Array<FacebookIdentity | GoogleIdentity>,
 };
+
+export type UploadResult = { data: { uploadImage: Array<Array<Image>> } };
