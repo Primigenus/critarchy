@@ -35,8 +35,8 @@ class UploadImage extends React.Component {
         </h1>
         <p>Post art to your sketchbook!</p>
         <ul>
-          <li>You can upload up to five pieces at once.</li>
-          <li>Images should be less than 5MB in size.</li>
+          <li>You can upload up to 5 pieces at once.</li>
+          <li>Max image size is 5MB.</li>
           <li>
             We'll show you previews before uploading and ask you for
             a title for each piece.
