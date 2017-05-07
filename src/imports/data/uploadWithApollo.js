@@ -1,3 +1,5 @@
+// @flow
+
 import ApolloClient from 'apollo-client';
 import { createNetworkInterface } from 'apollo-upload-client';
 import { Accounts } from 'meteor/accounts-base';
