@@ -2,7 +2,6 @@
 
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Page from '../../hocs/Page';
 import DefaultHelmet from '../../components/DefaultHelmet';

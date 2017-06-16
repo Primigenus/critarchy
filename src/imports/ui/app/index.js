@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 
 import withUser from '../../ui/hocs/withUser';
@@ -50,7 +50,16 @@ class App extends React.Component {
                 margin: 0 -2rem 1rem -2.5rem;
                 padding: 1rem 1rem 1rem 2rem;
                 display: inline-block;
+                position: relative;
+              }
+              .title:after {
+                display: block;
+                position: absolute;
+                top: 0; right: -.5rem; bottom: 0;
+                content: "";
+                width: 1rem;
                 transform: skewX(-5deg);
+                background-color: var(--colorBlack);
               }
               .button {
                 display: inline-block;
