@@ -7,7 +7,7 @@ type UserDetails = {
   hasUser: boolean,
 };
 
-const Nav = ({ hasUser }: UserDetails) => (
+const Nav = ({ hasUser }: UserDetails) =>
   <div>
     <nav className="main-nav">
       {hasUser
@@ -75,7 +75,6 @@ const Nav = ({ hasUser }: UserDetails) => (
         font-weight: bold;
       }
     `}</style>
-  </div>
-);
+  </div>;
 
 export default Nav;

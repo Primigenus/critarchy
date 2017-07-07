@@ -7,7 +7,7 @@ type UserDetails = {
   hasUser: boolean,
 };
 
-const HomeBanner = ({ hasUser }: UserDetails) => (
+const HomeBanner = ({ hasUser }: UserDetails) =>
   <div>
     <div role="banner" className="home-banner">
       <h1>An engine for helping artists improve</h1>
@@ -17,7 +17,9 @@ const HomeBanner = ({ hasUser }: UserDetails) => (
         constructive feedback with one another.
       </p>
       <p>
-        <Link to={hasUser ? '/upload' : '/signin'} className="button">Get started</Link>
+        <Link to={hasUser ? '/upload' : '/signin'} className="button">
+          Get started
+        </Link>
       </p>
     </div>
     <style jsx>{`
@@ -34,7 +36,6 @@ const HomeBanner = ({ hasUser }: UserDetails) => (
         margin-bottom: 0;
       }
     `}</style>
-  </div>
-);
+  </div>;
 
 export default HomeBanner;

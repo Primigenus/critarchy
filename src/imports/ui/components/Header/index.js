@@ -9,7 +9,7 @@ type UserDetails = {
   hasUser: boolean,
 };
 
-const Header = ({ hasUser }: UserDetails) => (
+const Header = ({ hasUser }: UserDetails) =>
   <header className="main-header">
     <Logo />
     <Nav hasUser={hasUser} />
@@ -23,7 +23,6 @@ const Header = ({ hasUser }: UserDetails) => (
         border-bottom: solid 2px var(--shadowColor);
       }
     `}</style>
-  </header>
-);
+  </header>;
 
 export default Header;
